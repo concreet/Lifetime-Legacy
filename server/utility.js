@@ -1,3 +1,6 @@
+const User = require('./models/user.js');
+const Capsule = require('./models/capsule.js');
+
 exports.parseDate = ([years, months, days]) => {
   let today = new Date();
   let currentYear = today.getFullYear();
@@ -30,28 +33,29 @@ exports.signup = (req, res) => {
 };
 
 exports.signin = (req, res) => {
-  User.findOne({ email: req.body.email }, (err, user) => {
-    if (err) {
-      console.error(`ERROR: ${err}`);
-      res.sendStatus(404);
-    } else if (!user) {
-      console.log(`Could not find user with email ${req.body.email}`);
-      res.sendStatus(404);
-    } else {
-      user.comparePassword(req.body.password, (err, matches) => {
-        if (err) {
-          console.error(`Signin error: ${err}`)
-          res.sendStatus(404);
-        } else if (!matches) {
-          console.log('Password did not match');
-          res.sendStatus(404);
-        } else {
-          console.log(`Successful user signin for email ${req.body.email}`);
-          res.send(user._id);
-        }
-      });
-    }
-  });
+  // User.findOne({ email: req.body.email }, (err, user) => {
+  //   if (err) {
+  //     console.error(`ERROR: ${err}`);
+  //     res.sendStatus(404);
+  //   } else if (!user) {
+  //     console.log(`Could not find user with email ${req.body.email}`);
+  //     res.sendStatus(404);
+  //   } else {
+  //     user.comparePassword(req.body.password, (err, matches) => {
+  //       if (err) {
+  //         console.error(`Signin error: ${err}`)
+  //         res.sendStatus(404);
+  //       } else if (!matches) {
+  //         console.log('Password did not match');
+  //         res.sendStatus(404);
+  //       } else {
+  //         console.log(`Successful user signin for email ${req.body.email}`);
+  //         res.send(user._id);
+  //       }
+  //     });
+  //   }
+  // });
+  res.send('5993447ada1e1a8c9114be47');   ////********   Put your ID here
 };
 
 exports.getAllCapsules = (req, res) => {
