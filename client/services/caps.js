@@ -5,6 +5,7 @@ angular.module('app')
   var STORE_URL = '';
 
   const filterCaps = function(filterMethod, userId, userEmail, cb) {
+
     $http({
       url: `${STORE_URL}/capsules/${filterMethod}`,
       method: 'POST',
