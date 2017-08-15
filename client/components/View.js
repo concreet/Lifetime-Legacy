@@ -46,6 +46,7 @@ angular.module('app')
       	  `<div class="modalBodyBorder" id="${i}">
 	    	  <h4>${cap.contents[i].name}</h4>
 	    	  <p class="momentoInput">${cap.contents[i].input}</p>
+          <button>I'm a fucking button, bitches</button>
     	  </div>`
        )
     }
