@@ -1,5 +1,5 @@
 angular.module('app')
-.controller('HomeCtrl', function($scope, Caps) {
+.controller('HomeCtrl', function($scope, Caps, Auth) {
 
   this.view = true;
   this.editingViewCapsule = false;
@@ -121,6 +121,11 @@ angular.module('app')
   }
 
   this.logOut = () => {
+    Auth.logout((err, data) => {
+      if (data) {
+        console.log('succesfully destroy session?');
+      }
+    })
     $scope.$ctrl.signedIn = false;
   }
 

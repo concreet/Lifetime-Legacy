@@ -21,41 +21,45 @@ exports.signup = (req, res) => {
     password: req.body.password
   });
   // the password will be hashed in the user file before save gets called
-  newUser.save((err) => {
+  newUser.save((err, user) => {
     if (err) {
       console.error(err);
       res.sendStatus(404);
     } else {
       console.log('New user created');
+      req.session.user = user;
+      console.log(req.session.user);
       res.sendStatus(201);
     }
   });
 };
 
 exports.signin = (req, res) => {
-  // User.findOne({ email: req.body.email }, (err, user) => {
-  //   if (err) {
-  //     console.error(`ERROR: ${err}`);
-  //     res.sendStatus(404);
-  //   } else if (!user) {
-  //     console.log(`Could not find user with email ${req.body.email}`);
-  //     res.sendStatus(404);
-  //   } else {
-  //     user.comparePassword(req.body.password, (err, matches) => {
-  //       if (err) {
-  //         console.error(`Signin error: ${err}`)
-  //         res.sendStatus(404);
-  //       } else if (!matches) {
-  //         console.log('Password did not match');
-  //         res.sendStatus(404);
-  //       } else {
-  //         console.log(`Successful user signin for email ${req.body.email}`);
-  //         res.send(user._id);
-  //       }
-  //     });
-  //   }
-  // });
-  res.send('5993447ada1e1a8c9114be47');   ////********   Put your ID here
+  User.findOne({ email: req.body.email }, (err, user) => {
+    if (err) {
+      console.error(`ERROR: ${err}`);
+      res.sendStatus(404);
+    } else if (!user) {
+      console.log(`Could not find user with email ${req.body.email}`);
+      res.sendStatus(404);
+    } else {
+      user.comparePassword(req.body.password, (err, matches) => {
+        if (err) {
+          console.error(`Signin error: ${err}`)
+          res.sendStatus(404);
+        } else if (!matches) {
+          console.log('Password did not match');
+          res.sendStatus(404);
+        } else {
+          console.log(`Successful user signin for email ${req.body.email}`);
+          req.session.user = user;
+          console.log('proof that a session has been editted and a new pro was added:', req.session);
+          res.send(user._id);
+        }
+      });
+    }
+  });
+  // res.send('5993447ada1e1a8c9114be47');   ////********   Put your ID here
 };
 
 exports.getAllCapsules = (req, res) => {

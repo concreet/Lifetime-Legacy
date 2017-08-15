@@ -1,14 +1,15 @@
 angular.module('app')
 .factory('Caps', function($http) {
 
-  var STORE_URL = 'http://127.0.0.1:3000';
+  var STORE_URL = 'http://localhost:3000';
 
   const filterCaps = function(filterMethod, userId, cb) {
     $http({
       url: `${STORE_URL}/capsules/${filterMethod}`,
       method: 'POST',
       data: {userId: userId},
-      contentType: 'application/json'
+      contentType: 'application/json',
+      withCredentials: true 
     })
     .then(function(res) {
       // gets all the capsules return matching the filer
@@ -25,7 +26,8 @@ angular.module('app')
       url: `${STORE_URL}/create`,
       method: 'POST',
       data: {userId: userId},
-      contentType: 'application/json'
+      contentType: 'application/json',
+      withCredentials: true 
     })
     .then(function(res) {
       // Returns the newly created capsules' id
@@ -44,6 +46,7 @@ angular.module('app')
       method: 'PUT',
       contentType: 'application/json',
       data: inputObj,
+      withCredentials: true 
     })
     .then(function(res) {
       // doesn't actually get anything back
@@ -62,6 +65,7 @@ angular.module('app')
       method: 'PUT',
       contentType: 'application/json',
       data: input,
+      withCredentials: true 
     })
     .then(function(res) {
       // doesn't actually get anything back
@@ -80,6 +84,7 @@ angular.module('app')
       method: 'POST',
       contentType: 'application/json',
       data: inputObj,
+      withCredentials: true 
     })
     .then(function(res) {
       // doesn't actually get anything back
