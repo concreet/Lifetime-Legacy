@@ -1,7 +1,9 @@
 angular.module('app')
 .factory('Auth', function($http) {
 
-  var STORE_URL = 'http://localhost:3000';
+  // var STORE_URL = 'http://localhost:3000';
+  var STORE_URL = '';
+
 
   const signin = function(userObj, cb) {
 
@@ -12,7 +14,7 @@ angular.module('app')
       url: `${STORE_URL}/signin`,
       headers: header,
       data: userObj,
-      withCredentials: true 
+      withCredentials: true
     })
     .then(function(res) {
       //console.log('anything back with res session?', res)
@@ -35,7 +37,7 @@ angular.module('app')
   	  method: 'POST',
   	  data: userObj,
   	  headers: header,
-      withCredentials: true 
+      withCredentials: true
   	})
   	.then(function(res) {
       // doesn't actually get anything back
@@ -53,7 +55,7 @@ angular.module('app')
     $http({
       url: `${STORE_URL}/session`,
       method: 'GET',
-      withCredentials: true 
+      withCredentials: true
     })
     .then(function(res) {
       // doesn't actually get anything back
@@ -71,7 +73,7 @@ angular.module('app')
     $http({
       url: `${STORE_URL}/logout`,
       method: 'GET',
-      withCredentials: true 
+      withCredentials: true
     })
     .then(function(res) {
       // doesn't actually get anything back

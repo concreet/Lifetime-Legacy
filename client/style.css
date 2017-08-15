@@ -7,6 +7,14 @@
   border-radius: 5px;
 }
 
+html {
+  height: 100%;
+}
+
+body {
+  height: 100%;
+}
+
 p {
     margin: 0 0 -3px;
     font-size: 16px;
@@ -80,7 +88,7 @@ input { text-align:center; }
   vertical-align: middle;
   width: 100%;
 
-  &:hover { 
+  &:hover {
     text-decoration: none;
     background-color: #CCCCCC; }
 
@@ -102,6 +110,12 @@ input { text-align:center; }
 
 /* Home CSS */
 
+.signedInView {
+  height: 100%;
+  /* width: 1000px; */
+  overflow: hidden;
+}
+
 .mainHeader {
   width: 100%;
   font-size: 52px;
@@ -119,6 +133,23 @@ input { text-align:center; }
   border-bottom: 2px solid gray;
 }
 
+.sidebar {
+  float: left;
+  width: 250px;
+  height: 100%;
+  background-color: blueviolet;
+}
+
+.main {
+  /* float: left; */
+  /* width: 800px; */
+  height: 80%;
+}
+
+.content {
+  float: left;
+/* width: 800px; */
+}
 .create {
   margin-right: -11%;
   /*background-color: rgba(103, 223, 205, 0.43);*/
@@ -214,7 +245,7 @@ i {
 }
 
 .capsuleBar button {
-  background-color: #F4F4F4; 
+  background-color: #F4F4F4;
 }
 
 .viewCapName, .ticker {
@@ -228,7 +259,7 @@ i {
 .momentoBar {
 	height: 10%;
 	width: 100%;
-	text-align: right; 
+	text-align: right;
   margin-bottom: 30px;
 }
 

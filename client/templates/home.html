@@ -1,8 +1,8 @@
-<div>
-    <h1 class="mainHeader">Life-Time Capsule</h1>
-</div>
 
 <nav class="navbar">
+  <!-- <div> -->
+    <h1 class="mainHeader">Life-Time Capsule</h1>
+  <!-- </div> -->
   <button class="btn view" ng-click="$ctrl.toggleToView()">View Capsules</button>
   <button class="btn create" ng-click="$ctrl.toggleToCreate()">Create A Capsule</button>
   <span id="logoutButton" >
@@ -18,22 +18,21 @@
       <div class="btn filterButton" id="buried" ng-click="$ctrl.handleFilter($event)">
         Buried
       </div>
-
       <div class="btn filterButton" id="inProgress" ng-click="$ctrl.handleFilter($event)">
         In Progress
       </div>
     </div>
   </span>
 </nav>
-
-<span ng-show="$ctrl.view">
-
-  <view-page class="col-md-3" ng-repeat="cap in $ctrl.capsData track by $index" cap="cap" index="$index" edit-capsule="$ctrl.editCapsule" delete-cap="$ctrl.deleteCap"> </view-page>
-
-</span>
-
-<span ng-hide="$ctrl.view">
-
-  <create-page view-toggle="$ctrl.toggleToView" named="$ctrl.named" capsule-id="$ctrl.capsuleId" capsule-to-edit="$ctrl.capsuleToEdit" editing-view-capsule="$ctrl.editingViewCapsule" view="$ctrl.view" edited-capsule-name="$ctrl.editedCapsuleName" current-cap="$ctrl.currentCap" capsule-name="$ctrl.capsuleName" delete-cap="$ctrl.deleteCap"> </create-page>
-
-</span>
+<div class="main">
+  <div class="sidebar">
+  </div>
+  <div class="content">
+    <div ng-show="$ctrl.view">
+      <view-page class="col-md-3" ng-repeat="cap in $ctrl.capsData track by $index" cap="cap" index="$index" edit-capsule="$ctrl.editCapsule" delete-cap="$ctrl.deleteCap"> </view-page>
+    </div>
+    <div ng-hide="$ctrl.view">
+      <create-page view-toggle="$ctrl.toggleToView" named="$ctrl.named" capsule-id="$ctrl.capsuleId" capsule-to-edit="$ctrl.capsuleToEdit" editing-view-capsule="$ctrl.editingViewCapsule" view="$ctrl.view" edited-capsule-name="$ctrl.editedCapsuleName" current-cap="$ctrl.currentCap" capsule-name="$ctrl.capsuleName" delete-cap="$ctrl.deleteCap"> </create-page>
+    </div>
+  </div>
+</div>
