@@ -16,7 +16,8 @@ const UserSchema = new Schema({
   password: {
     type: String,
     required: true
-  }
+  },
+  contacts: []
 });
 
 UserSchema.pre('save', function(next) {
