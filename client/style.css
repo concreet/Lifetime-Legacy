@@ -463,3 +463,10 @@ i {
   padding: 8px 0;
   width: 70%;
 }
+
+video {
+  height: 232px;
+  margin: 0 12px 20px 0;
+  vertical-align: top;
+  width: calc(20em - 10px);
+}

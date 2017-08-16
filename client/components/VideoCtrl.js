@@ -3,7 +3,6 @@ angular.module('app')
   function($scope, $sce, VideoMedia) {
 
     //*****
-
     //insert AWS config here
     var albumBucketName = 'bchilds-greenfield-legacy-timecapsule';
     var bucketRegion = 'us-east-2'; // Region;
@@ -20,8 +19,8 @@ angular.module('app')
       apiVersion: '2006-03-01',
       params: {Bucket: albumBucketName}
     });
-
     //*****
+
     
     this.captureVideo = function() {
       VideoMedia.get().then(function(stream) {
