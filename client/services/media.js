@@ -7,7 +7,7 @@ angular.module('app')
       navigator.mozGetUserMedia;
 
     var constraints = {
-      audio: false,
+      audio: true,
       video: true
     };
 
