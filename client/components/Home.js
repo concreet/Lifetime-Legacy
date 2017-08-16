@@ -123,7 +123,7 @@ angular.module('app')
   this.logOut = () => {
     Auth.logout((err, data) => {
       if (data) {
-        console.log('succesfully destroy session?');
+        console.log('successfully logged out.');
       }
     })
     $scope.$ctrl.signedIn = false;

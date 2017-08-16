@@ -6,7 +6,7 @@ angular.module('app', [])
   this.email = '';
 
   this.setUser = function(err, user) {
-    console.log(user);
+    // console.log(user);
     if (user._id) {
       this.signedIn = true;
       this.userId = user._id;
