@@ -7,8 +7,13 @@ const Capsule = require('./models/capsule.js');
 const util = require('./utility.js')
 const emailService = require('./email.js');
 const cronScan = require('./cronScan.js');
+const session = require('express-session');
 
 const app = express();
+
+app.use(session({
+  secret: 'why'
+}));
 
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
@@ -25,25 +30,30 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/index.html'));
 });
 
+
 app.post('/signup', util.signup);
 
 app.post('/signin', util.signin);
 
 app.post('/addContact', util.addContact);
 
-app.post('/capsules/all', util.getAllCapsules);
+app.post('/capsules/all', util.isLoggedOn, util.getAllCapsules);
 
-app.post('/capsules/buried', util.getBuriedCapsules);
+app.post('/capsules/buried', util.isLoggedOn, util.getBuriedCapsules);
 
-app.post('/capsules/inProgress', util.inProgress);
+app.get('/session', util.checkSession);
 
-app.post('/create', util.createCapsule);
+app.get('/logout', util.destroySession);
 
-app.put('/edit', util.editCapsule);
+app.post('/capsules/inProgress', util.isLoggedOn, util.inProgress);
 
-app.post('/delete', util.deleteCapsule);
+app.post('/create', util.isLoggedOn, util.createCapsule);
 
-app.put('/bury', util.buryCapsule);
+app.put('/edit', util.isLoggedOn, util.editCapsule);
+
+app.post('/delete', util.isLoggedOn, util.deleteCapsule);
+
+app.put('/bury', util.isLoggedOn, util.buryCapsule);
 
 app.listen(3000, () => {
   console.log('Server listening on port 3000');
