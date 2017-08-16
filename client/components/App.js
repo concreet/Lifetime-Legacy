@@ -19,10 +19,23 @@ angular.module('app', [])
   // Filtering done on backend.
   this.capsData = [];
 
+  //fake data
+  this.contacts = [
+    {
+      name: 'dem',
+      email: 'dm@gmail.com'
+    },
+    {
+      name: 'ben',
+      token: 'thisIsAToken'
+    }
+  ]
+  //end fake data
+
   // Initial GET request upon successful sign in.
   // id passed from Landing.js signin
   this.init = (id) => {
-    
+
     Caps.filterCaps('all', id, (err, allCaps) => {
   	  if (err) {
   	    throw new Error(err);

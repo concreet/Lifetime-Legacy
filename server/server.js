@@ -35,9 +35,9 @@ app.post('/signup', util.signup);
 
 app.post('/signin', util.signin);
 
-app.post('/addContact', util.addContact);
+app.post('/contact/add', util.addContact);
 
-app.post('/capsules/all', util.isLoggedOn, util.getAllCapsules);
+app.post('/capsules/all', /*util.isLoggedOn,*/ util.getAllCapsules);
 
 app.post('/capsules/buried', util.isLoggedOn, util.getBuriedCapsules);
 

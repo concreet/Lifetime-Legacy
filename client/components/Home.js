@@ -19,6 +19,16 @@ angular.module('app')
     });
   }
 
+  this.addContactPopup = function(event) {
+    // Caps.filterCaps(event.target.id, $scope.$ctrl.userId, (err, res) => {
+    //   if (!err) {
+    //     $scope.$ctrl.capsData = res;
+    //   } else {
+    //     throw new Error(err);
+    //   }
+    // });
+  }
+
   this.editCapsule = (capsule) => {
     this.capsuleToEdit = capsule;
     this.capsuleToEdit.contents = capsule.contents;
@@ -32,6 +42,9 @@ angular.module('app')
 
   this.toggleToCreate = () => {
     if (this.view) {
+      console.log('userId', $scope.$ctrl.userId);
+      console.log('email', $scope.$ctrl.email);
+
       Caps.createCap($scope.$ctrl.userId,(err, capsuleId) => {
         if (err) {
           console.log('You dun screwed up');
@@ -108,7 +121,7 @@ angular.module('app')
     var saveProgress = confirm('Remove this capsule?...forever??');
 
     if(saveProgress) {
-      
+
       var capObj = {capsuleId: capId}
       Caps.deleteCap(capObj, (err, res) => {
         if (err) {
@@ -139,7 +152,8 @@ angular.module('app')
     editedCapsuleName: '<',
     signedIn: '=',
     email: '<',
-    capsData: '='
+    capsData: '=',
+    contacts: '='
   },
   templateUrl: '../templates/home.html'
 })
