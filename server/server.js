@@ -37,7 +37,7 @@ app.post('/signin', util.signin);
 
 app.post('/addContact', util.addContact);
 
-app.post('/removeContact', util.removeContact);
+app.post('/removeContact',  util.removeContact);
 
 app.post('/getContacts', util.getContacts);
 
