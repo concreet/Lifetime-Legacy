@@ -1,5 +1,6 @@
 angular.module('app')
-.controller("VideoCtrl", ["$scope", "$sce", "VideoMedia", function($scope, $sce, UserMedia) {
+.controller("VideoCtrl", ["$scope", "$sce", "VideoMedia", 
+  function($scope, $sce, UserMedia) {
     
     $scope.captureVideo = function() {
       VideoMedia.get().then(function(stream) {
@@ -18,15 +19,16 @@ angular.module('app')
   }
 ])
 
-.component('audioVideoRecord', {
+.component('videoCtrl', {
   controller: 'VideoCtrl',
 
   bindings: {
 
   },
 
-  templateUrl: 
+  templateUrl: '../templates/videoPlayer.html'
 })
 
 
 
+//https://codepen.io/Xeoncross/pen/WbYggJ?editors=1010
