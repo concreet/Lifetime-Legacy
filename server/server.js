@@ -8,12 +8,9 @@ const util = require('./utility.js')
 const emailService = require('./email.js');
 const cronScan = require('./cronScan.js');
 const session = require('express-session');
-const cors = require('cors');
-
 
 const app = express();
 
-// app.use(cors());
 app.use(session({
   secret: 'why'
 }));
@@ -21,11 +18,8 @@ app.use(session({
 let isLoggedOn = function(req, res, next) {
   console.log('cheking for user session every request:', req.session);
   if (req.session.user) {
-    // console.log('was it here?')
     next();
   } else {
-    // console.log('didnt log in?')
-    // next();
     res.redirect('/');
   }
 }
@@ -35,10 +29,8 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 app.use(express.static('client'));
 
-//app.use(isLoggedOn);
-
 app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', 'http://localhost:3000');
+  res.header('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
   next();
