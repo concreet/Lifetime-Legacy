@@ -58,6 +58,18 @@ exports.signin = (req, res) => {
   res.send('5993447ada1e1a8c9114be47');   ////********   Put your ID here
 };
 
+exports.addContact = (req, res) => {
+  // User.findOne({email: req.body.email}, {'user.recipient': $elemMatch: req.body.recipient}, function(err, result) {
+  // })
+
+  console.log(req.body.email, req.body.recipient);
+  User.findOne({ email: req.body.email }, (err, user) => {
+    user.recipient.push(req.body.recipient);
+    console.log(user);
+    res.sendStatus(201);
+  })
+}
+
 exports.getAllCapsules = (req, res) => {
   console.log('req body userId', req.body);
   Capsule.find({ _user: req.body.userId }, (err, capsules) => {
@@ -201,7 +213,3 @@ exports.buryCapsule = (req, res) => {
       }
     });
 };
-
-
-
-

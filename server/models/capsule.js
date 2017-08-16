@@ -13,7 +13,7 @@ const CapsuleSchema = new Schema({
   unearthed: Boolean,
   unearthDate: Date,
   createdAt: Date,
-  intendedRecipient: String,
+  intendedRecipient: [],
   unearthMessage: String
 });
 
