@@ -142,13 +142,14 @@ input { text-align:center; }
 
 .main {
   /* float: left; */
-  /* width: 800px; */
+  width: 1350px;
   height: 80%;
+  margin: auto;
 }
 
 .content {
   float: left;
-/* width: 800px; */
+  width: 1100px;
 }
 .create {
   margin-right: -11%;
