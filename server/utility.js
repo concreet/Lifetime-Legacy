@@ -66,9 +66,11 @@ exports.addContact = (req, res) => {
   // User.findOne({email: req.body.email}, {'user.recipient': $elemMatch: req.body.recipient}, function(err, result) {
   // })
 
-  console.log(req.body.email, req.body.recipient);
+  console.log(req.body.email, req.body.contact);
   User.findOne({ email: req.body.email }, (err, user) => {
-    user.recipient.push(req.body.recipient);
+    console.log('user found', user)
+    user.contacts.push(req.body.contact);
+    user.save();
     console.log(user);
     res.sendStatus(201);
   })
