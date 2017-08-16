@@ -1,8 +1,8 @@
 angular.module('app')
 .controller("VideoCtrl", ["$scope", "$sce", "VideoMedia", 
-  function($scope, $sce, UserMedia) {
+  function($scope, $sce, VideoMedia) {
     
-    $scope.captureVideo = function() {
+    this.captureVideo = function() {
       VideoMedia.get().then(function(stream) {
         console.log("starting video", stream);
         window.stream = stream; // stream available to console for dev

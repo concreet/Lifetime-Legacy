@@ -2,6 +2,6 @@
   <div id="audioVideoList">
     <video id="cap-video" ng-src="{{videostream}}" autoplay></video>
   </div>
-  <button id="addAudo" onClick="captureVideo()">Add Audio</button>
-  <button id="addVideo">Record Video</button>
+  <button id="addAudio">Add Audio</button>
+  <button id="addVideo" ng-click="$ctrl.captureVideo()">Record Video</button>
 </div>

@@ -1,5 +1,5 @@
 angular.module('app')
-app.service("VideoMedia", ["$q",
+.service("VideoMedia", ["$q",
   function($q) {
     navigator.getUserMedia =
       navigator.getUserMedia ||
