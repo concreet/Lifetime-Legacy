@@ -65,8 +65,8 @@ exports.signin = (req, res) => {
 exports.addContact = (req, res) => {
 
 
-  console.log(req.body.userId, req.body.contact);
-  User.findOne({ _id: req.body.userId }, (err, user) => {
+  console.log(req.body.email, req.body.contact);
+  User.findOne({ email: req.body.email }, (err, user) => {
     // console.log('user found', user)
     user.contacts.push(req.body.contact);
     user.save();
@@ -80,11 +80,11 @@ exports.removeContact = (req, res) => {
   console.log(req.body.email, req.body.contact);
   User.findOne({ email: req.body.email }, (err, user)=> {
     if (err) {
-      console.error(`Failed to remove contact ${req.body.contact.email} from the database`);
+      console.error(`Failed to remove contact ${req.body.contact.name} from the database`);
       res.sendStatus(504);
     } else {
       let newList = user.contacts.filter((contact)=>{
-        return contact.email === req.body.contact.email
+        return contact.name !== req.body.contact.name
 
       })
       console.log(newList);
@@ -94,7 +94,7 @@ exports.removeContact = (req, res) => {
           console.error(err);
           res.sendStatus(404);
         } else {
-          console.log(`Successfully removed contact ${req.body.contact.email} from the database`);
+          console.log(`Successfully removed contact ${req.body.contact.name} from the database`);
           res.sendStatus(204);
         }
       });
@@ -104,7 +104,7 @@ exports.removeContact = (req, res) => {
 }
 
 exports.getContacts = (req, res) => {
-  console.log(req.body.email);
+  console.log(req.body.email, '------email');
   User.findOne({ email: req.body.email }, (err, user)=>{
     if (err) {
       console.error(`Failed to retrieve contacts from the database`);
