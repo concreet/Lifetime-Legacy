@@ -19,6 +19,16 @@ angular.module('app')
     });
   }
 
+  this.addContactPopup = function(event) {
+    // Caps.filterCaps(event.target.id, $scope.$ctrl.userId, (err, res) => {
+    //   if (!err) {
+    //     $scope.$ctrl.capsData = res;
+    //   } else {
+    //     throw new Error(err);
+    //   }
+    // });
+  }
+
   this.editCapsule = (capsule) => {
     this.capsuleToEdit = capsule;
     this.capsuleToEdit.contents = capsule.contents;
@@ -142,7 +152,8 @@ angular.module('app')
     editedCapsuleName: '<',
     signedIn: '=',
     email: '<',
-    capsData: '='
+    capsData: '=',
+    contacts: '='
   },
   templateUrl: '../templates/home.html'
 })

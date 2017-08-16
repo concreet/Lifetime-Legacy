@@ -7,7 +7,7 @@ angular.module('app')
   const addContact = function(userId, contact ,cb) {
 
     $http({
-      url: `${STORE_URL}/contact/add`,
+      url: `${STORE_URL}/addContact`,
       method: 'POST',
       data: {userId: userId, contact: contact},
       contentType: 'application/json',
