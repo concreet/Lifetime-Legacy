@@ -206,6 +206,26 @@ exports.buryCapsule = (req, res) => {
     });
 };
 
+exports.checkSession = (req, res) => {
+  if (req.session.user) {
+    res.send(req.session.user);
+  } else {
+    res.send('no session found');
+  }
+};
 
+exports.destroySession = (req, res) => {
+  req.session.destroy();
+  res.redirect('/');
+};
+
+exports.isLoggedOn = function(req, res, next) {
+  console.log('cheking for user session every request:', req.session);
+  if (req.session.user) {
+    next();
+  } else {
+    res.redirect('/');
+  }
+}
 
 
