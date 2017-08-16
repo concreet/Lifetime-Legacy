@@ -28,6 +28,10 @@ angular.module('app', [])
     {
       name: 'ben',
       token: 'thisIsAToken'
+    },
+    {
+      name: 'lina',
+      token: 'thisisanothertoken'
     }
   ]
   //end fake data

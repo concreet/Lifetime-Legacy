@@ -1,3 +1,5 @@
-<div>
-  {{$ctrl.contact.name}}
+<div class="contact">
+  <p class="contactName">{{$ctrl.contact.name}}</p>
+  <p class="contactInfo" ng-show="$ctrl.contact.email">email: {{$ctrl.contact.email}}</p>
+  <p class="contactInfo" ng-show="$ctrl.contact.token">token: {{$ctrl.contact.token}}</p>
 </div>

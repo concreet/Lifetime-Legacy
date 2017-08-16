@@ -8,6 +8,7 @@ angular.module('app')
   this.capsuleToEdit = {};
   this.currentCap = [];
   this.named = false;
+  this.addContactPopupBool = true;
 
   this.handleFilter = function(event) {
     Caps.filterCaps(event.target.id, $scope.$ctrl.userId, (err, res) => {
@@ -20,13 +21,9 @@ angular.module('app')
   }
 
   this.addContactPopup = function(event) {
-    // Caps.filterCaps(event.target.id, $scope.$ctrl.userId, (err, res) => {
-    //   if (!err) {
-    //     $scope.$ctrl.capsData = res;
-    //   } else {
-    //     throw new Error(err);
-    //   }
-    // });
+    console.log('clicked', this.addContactPopupBool);
+    this.addContactPopupBool = false;
+    console.log('clicked', this.addContactPopupBool);  
   }
 
   this.editCapsule = (capsule) => {

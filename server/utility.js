@@ -63,15 +63,12 @@ exports.signin = (req, res) => {
 };
 
 exports.addContact = (req, res) => {
-
-
-  console.log(req.body.email, req.body.contact);
+  // console.log(req.body.email, req.body.contact);
   User.findOne({ email: req.body.email }, (err, user) => {
     // console.log('user found', user)
     user.contacts.push(req.body.contact);
     user.save();
-    console.log(user);
-
+    // console.log(user);
     res.sendStatus(201);
   })
 }
@@ -98,7 +95,7 @@ exports.removeContact = (req, res) => {
           res.sendStatus(204);
         }
       });
-      
+
     }
   })
 }
