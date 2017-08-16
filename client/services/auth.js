@@ -57,7 +57,7 @@ angular.module('app')
     })
     .then(function(res) {
       // doesn't actually get anything back
-      console.log(res.data);
+      // console.log(res.data);
       cb(null, res.data);
     })
     .catch(function(err) {
