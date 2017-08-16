@@ -63,9 +63,7 @@ exports.signin = (req, res) => {
 };
 
 exports.addContact = (req, res) => {
-  // User.findOne({email: req.body.email}, {'user.recipient': $elemMatch: req.body.recipient}, function(err, result) {
-  // })
-  //inputs userId, contact
+
 
   console.log(req.body.userId, req.body.contact);
   User.findOne({ _id: req.body.userId }, (err, user) => {
@@ -73,9 +71,50 @@ exports.addContact = (req, res) => {
     user.contacts.push(req.body.contact);
     user.save();
     console.log(user);
+
     res.sendStatus(201);
   })
 }
+
+exports.removeContact = (req, res) => {
+  console.log(req.body.email, req.body.contact);
+  User.findOne({ email: req.body.email }, (err, user)=> {
+    if (err) {
+      console.error(`Failed to remove contact ${req.body.contact.email} from the database`);
+      res.sendStatus(504);
+    } else {
+      let newList = user.contacts.filter((contact)=>{
+        return contact.email === req.body.contact.email
+
+      })
+      console.log(newList);
+      user.contacts = newList;
+      user.save((err, user) => {
+        if (err) {
+          console.error(err);
+          res.sendStatus(404);
+        } else {
+          console.log(`Successfully removed contact ${req.body.contact.email} from the database`);
+          res.sendStatus(204);
+        }
+      });
+      
+    }
+  })
+}
+
+exports.getContacts = (req, res) => {
+  console.log(req.body.email);
+  User.findOne({ email: req.body.email }, (err, user)=>{
+    if (err) {
+      console.error(`Failed to retrieve contacts from the database`);
+      res.sendStatus(504);
+    } else {
+      res.status(200).send(user.contacts);
+    }
+  })
+}
+
 
 exports.getAllCapsules = (req, res) => {
   console.log('req body userId', req.body);
