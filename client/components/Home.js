@@ -32,6 +32,9 @@ angular.module('app')
 
   this.toggleToCreate = () => {
     if (this.view) {
+      console.log('userId', $scope.$ctrl.userId);
+      console.log('email', $scope.$ctrl.email);
+
       Caps.createCap($scope.$ctrl.userId,(err, capsuleId) => {
         if (err) {
           console.log('You dun screwed up');
@@ -108,7 +111,7 @@ angular.module('app')
     var saveProgress = confirm('Remove this capsule?...forever??');
 
     if(saveProgress) {
-      
+
       var capObj = {capsuleId: capId}
       Caps.deleteCap(capObj, (err, res) => {
         if (err) {

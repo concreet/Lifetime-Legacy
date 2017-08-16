@@ -65,10 +65,11 @@ exports.signin = (req, res) => {
 exports.addContact = (req, res) => {
   // User.findOne({email: req.body.email}, {'user.recipient': $elemMatch: req.body.recipient}, function(err, result) {
   // })
+  //inputs userId, contact
 
-  console.log(req.body.email, req.body.contact);
-  User.findOne({ email: req.body.email }, (err, user) => {
-    console.log('user found', user)
+  console.log(req.body.userId, req.body.contact);
+  User.findOne({ _id: req.body.userId }, (err, user) => {
+    // console.log('user found', user)
     user.contacts.push(req.body.contact);
     user.save();
     console.log(user);
