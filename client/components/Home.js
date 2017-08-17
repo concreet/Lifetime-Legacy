@@ -119,6 +119,7 @@ angular.module('app')
             this.named = false;
             this.view = false;
             this.editingViewCapsule = false;
+            console.log(':D')
           }
         })
       }
