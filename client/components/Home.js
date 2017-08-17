@@ -1,5 +1,5 @@
 angular.module('app')
-.controller('HomeCtrl', function($scope, Caps, Auth) {
+.controller('HomeCtrl', function($scope, Caps, Auth, Contacts) {
 
   this.view = true;
   this.editingViewCapsule = false;
@@ -9,6 +9,28 @@ angular.module('app')
   this.currentCap = [];
   this.named = false;
   this.addContactPopupBool = true;
+  this.addContactName = '';
+  this.addContactEmailOrPhrase = '';
+  this.valueEmailOrPhrase = 'Email';
+  //fake data
+
+
+  this.renderContacts = function() {
+    Contacts.getContacts(this.email, (err, data)=>{
+      $scope.$ctrl.contacts = data;
+    })
+  }
+
+  this.compareContacts = function(cb) {
+    for (var contact of $scope.$ctrl.contacts) {
+      console.log(contact.name);
+      if (this.addContactName === contact.name) {
+        alert('Contact name already exists')
+        cb(err)
+      }
+    }
+    cb()
+  }
 
   this.handleFilter = function(event) {
     Caps.filterCaps(event.target.id, $scope.$ctrl.userId, (err, res) => {
@@ -20,10 +42,36 @@ angular.module('app')
     });
   }
 
+  this.addContact = function() {
+    this.compareContacts((err) => {
+      if (!err) {
+        var field = this.valueEmailOrPhrase.toLowerCase();
+        var contactObj = {}
+        contactObj.name = this.addContactName,
+        contactObj[field] = this.addContactEmailOrPhrase
+
+        Contacts.addContact($scope.$ctrl.email, contactObj, ()=>{
+          console.log('callback!')
+          this.renderContacts();
+        });
+        this.addContactPopupBool = !this.addContactPopupBool;
+      }
+    })
+  }
+
+  this.toggleEmailOrPhrase = function(e) {
+    console.log(e.target.attributes[0].value)
+    // e.preventDefault();
+    this.valueEmailOrPhrase = e.target.attributes[0].value;
+    this.addContactEmailOrPhrase = '';
+    this.addContactName = '';
+
+  }
+
   this.addContactPopup = function(event) {
-    console.log('clicked', this.addContactPopupBool);
-    this.addContactPopupBool = false;
-    console.log('clicked', this.addContactPopupBool);  
+    this.addContactEmailOrPhrase = '';
+    this.addContactName = '';
+    this.addContactPopupBool = !this.addContactPopupBool;
   }
 
   this.editCapsule = (capsule) => {
@@ -138,6 +186,10 @@ angular.module('app')
     })
     $scope.$ctrl.signedIn = false;
   }
+
+  // this.init = (id) => {
+  //   // this.renderContacts();
+  // }
 
 })
 .component('homePage', {

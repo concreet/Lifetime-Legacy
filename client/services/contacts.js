@@ -38,16 +38,16 @@ angular.module('app')
     .catch(function(err) {
       cb(err);
     });
-    
+
   };
 
 
-  const getContact = function(userEmail, cb) {
+  const getContacts = function(email, cb) {
 
     $http({
-        url: `${STORE_URL}/getContact`,
+        url: `${STORE_URL}/getContacts`,
         method: 'POST',
-        data: { email: userEmail},
+        data: { email: email},
         contentType: 'application/json',
         withCredentials: true
       })
@@ -64,7 +64,7 @@ angular.module('app')
   return {
     addContact: addContact,
     removeContact: removeContact,
-    getContact: getContact
+    getContacts: getContacts
   };
 
 });

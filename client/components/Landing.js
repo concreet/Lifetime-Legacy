@@ -34,8 +34,9 @@ angular.module('app')
 
     this.error = false;
   	var obj = {email: email, password: password};
-    
+
   	Auth.signin(obj, (err, res) => {
+      console.log('res', res);
       if (err) {
         this.error = true;
       } else {
@@ -44,7 +45,7 @@ angular.module('app')
         $scope.password = '';
         $scope.$ctrl.userId = res;
         $scope.$ctrl.signedIn = true;
-        $scope.$ctrl.init(res);
+        $scope.$ctrl.init(res, obj.email);
       }
   	})
   }
