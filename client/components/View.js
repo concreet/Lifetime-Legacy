@@ -1,7 +1,7 @@
 angular.module('app')
 .controller('ViewCtrl', function($scope, Caps) {
-
   this.viewDetails = (cap) => {
+    console.log(cap.contents, '>>>>>>>>>>');
   	// Work around for rendering dynamic content to modal by using jquery
   	$('.modalBodyBorder').on('click', function(event) {
   		$scope.chosenIndex = event.currentTarget.id;

@@ -291,6 +291,7 @@ exports.buryCapsule = (req, res) => {
         capsule.buried = true;
         capsule.unearthDate = exports.parseDate(unearthDate);
         capsule.intendedRecipient = newRecipient;
+
         let year = capsule.unearthDate.getFullYear();
         let month = capsule.unearthDate.getMonth() + 1;
         let day = capsule.unearthDate.getDate();

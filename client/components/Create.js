@@ -41,6 +41,8 @@ angular.module('app')
   }
 
   this.setCapsuleName = (name) => {
+
+
     var capName;
     if(name) {
       capName = name;
@@ -48,12 +50,24 @@ angular.module('app')
       capName = document.getElementById('capsuleInput').value;
     }
     if(capName !== null && capName !== undefined && capName !== '') {
+      console.log(capName, '??')
+      Caps.createCap(this.userid, capName, (err, capsuleId) => {
+        if (err) {
+          console.log('You dun screwed up');
+          throw new Error(err);
+        } else {
+      console.log('here?')
+          //this.capsuleName = '';
+          this.capsuleId = capsuleId;
+          //this.capsuleToEdit = {};
+          //this.named = false;
+          //this.view = false;
+        }
+      })
       $scope.$ctrl.capsuleName = capName;
-      $scope.$ctrl.editedCapsuleName = capName;
+      //$scope.$ctrl.editedCapsuleName = capName;
       $scope.$ctrl.named = true;
-      this.capsuleChange(null, false);
-    } else {
-      this.named = false;
+      //this.capsuleChange(null, false);
     }
   }
 
@@ -175,6 +189,7 @@ angular.module('app')
   controller: 'CreateCtrl',
 
   bindings: {
+    userid: '<',
     capsuleId: '<',
     capsuleToEdit: '<',
     editingViewCapsule: '<',
