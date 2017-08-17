@@ -33,6 +33,7 @@ angular.module('app')
   }
 
   this.handleFilter = function(event) {
+    
     Caps.filterCaps(event.target.id, $scope.$ctrl.userId, (err, res) => {
       if (!err) {
         $scope.$ctrl.capsData = res;
@@ -137,7 +138,7 @@ angular.module('app')
       }
 
       if (saveProgress) {
-        Caps.filterCaps('all', $scope.$ctrl.userId, (err, res) => {
+        Caps.filterCaps('all', this.email, $scope.$ctrl.userId, (err, res) => {
           if (!err) {
             $scope.$ctrl.capsData = res;
           } else {
@@ -151,7 +152,7 @@ angular.module('app')
         this.view = true;
       }
     } else {
-      Caps.filterCaps('all', $scope.$ctrl.userId, (err, res) => {
+      Caps.filterCaps('all', this.email, $scope.$ctrl.userId, (err, res) => {
         if (!err) {
           $scope.$ctrl.capsData = res;
         } else {

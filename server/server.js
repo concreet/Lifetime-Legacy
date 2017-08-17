@@ -41,23 +41,27 @@ app.post('/removeContact',  util.removeContact);
 
 app.post('/getContacts', util.getContacts);
 
-app.post('/capsules/all', util.isLoggedOn, util.getAllCapsules);
+app.post('/capsules/all', util.getAllCapsules);
 
-app.post('/capsules/buried', util.isLoggedOn, util.getBuriedCapsules);
+app.post('/capsules/buried', util.getBuriedCapsules);
+
+app.post('/capsules/other', util.getOtherCapsules);
+
+app.post('/secretCapsules', util.getOtherCapsulesBySecret);
 
 app.get('/session', util.checkSession);
 
 app.get('/logout', util.destroySession);
 
-app.post('/capsules/inProgress', util.isLoggedOn, util.inProgress);
+app.post('/capsules/inProgress', util.inProgress);
 
-app.post('/create', util.isLoggedOn, util.createCapsule);
+app.post('/create', util.createCapsule);
 
-app.put('/edit', util.isLoggedOn, util.editCapsule);
+app.put('/edit', util.editCapsule);
 
-app.post('/delete', util.isLoggedOn, util.deleteCapsule);
+app.post('/delete', util.deleteCapsule);
 
-app.put('/bury', util.isLoggedOn, util.buryCapsule);
+app.put('/bury', util.buryCapsule);
 
 app.listen(3000, () => {
   console.log('Server listening on port 3000');

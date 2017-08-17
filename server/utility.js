@@ -54,7 +54,7 @@ exports.signin = (req, res) => {
           console.log(`Successful user signin for email ${req.body.email}`);
           req.session.user = user;
           console.log('proof that a session has been editted and a new pro was added:', req.session);
-          res.send(user._id);
+          res.send(req.session.user);
         }
       });
     }
@@ -112,10 +112,13 @@ exports.getContacts = (req, res) => {
   })
 }
 
-
+//need to update http
 exports.getAllCapsules = (req, res) => {
   console.log('req body userId', req.body);
-  Capsule.find({ _user: req.body.userId }, (err, capsules) => {
+  
+  Capsule.find({ 
+    $or: [{ intendedRecipient: { $elemMatch: { email:req.body.email }}, buried: true }, { _user: req.body.userId }]}, 
+    (err, capsules) => {
     if (err) {
       console.error(`All capsules retrieval error: ${err}`);
       res.sendStatus(404);
@@ -144,6 +147,51 @@ exports.getBuriedCapsules = (req, res) => {
   });
 };
 
+//expecting req.body.email
+exports.getOtherCapsules = (req, res) => {
+  Capsule.find({ intendedRecipient: { $elemMatch: { email:req.body.email }}, buried: true }, (err, capsules) => {
+    if (err) {
+      console.error(`Get other capsules by email retrieval error: ${err}`);
+      res.sendStatus(404);
+    } else if (!capsules) {
+      console.log('There is no other capsules by emails');
+      res.sendStatus(404);
+    } else {
+      console.log(`Successfully retrieved other capsules for user email${req.body.email}`);
+      res.send(capsules);
+    }
+  });
+}
+
+//expecting req.body.sercret and req.body.userEmail
+exports.getOtherCapsulesBySecret=(req, res) => {
+  Capsule.find({ intendedRecipient: { $elemMatch: { secret:req.body.secret }}, buried: true }, (err, capsules) => {
+    if (err) {
+      console.error(`Get other capsules by secret retrieval error: ${err}`);
+      res.sendStatus(404);
+    } else if (!capsules) {
+      console.log('There is no other capsules by secret');
+      res.sendStatus(404);
+    } else {
+      console.log('Successfully retrieved other capsules from the sercret');
+      for (let contact of capsules.intendedRecipient) {
+        if (contact.secret === req.body.secret) {
+          contact.email = req.body.email;
+        }
+      }
+      capsules.save((err, user) => {
+        if (err) {
+          console.error(err);
+          res.sendStatus(404);
+        } else {
+          console.log(`Successfully add user email ${req.body.email} as a recipient to this capsule`);
+          res.send(capsules);
+        }
+      })
+    }
+  });
+}
+
 exports.inProgress = (req, res) => {
   Capsule.find({ _user: req.body.userId, buried: false }, (err, capsules) => {
     if (err) {
@@ -160,14 +208,16 @@ exports.inProgress = (req, res) => {
 };
 
 exports.createCapsule = (req, res) => {
+  console.log(req.body, 'request body----');
   let newCapsule = Capsule({
     _user: req.body.userId,
-    capsuleName: '',
+    capsuleName: req.body.capsuleName,
     contents: [],
     buried: false,
     unearthed: false,
     unearthDate: null,
     createdAt: Date.now(),
+    intendedRecipient: [],
     unearthMessage: ''
   });
 
@@ -221,9 +271,12 @@ exports.deleteCapsule = (req, res) => {
   });
 };
 
+//this is the place to send recipients
 exports.buryCapsule = (req, res) => {
   let capsuleId = req.body.capsuleId;
   let unearthDate = req.body.unearthDate;
+  let newRecipient = req.body.recipient;
+
 
   Capsule.findOne({ _id: capsuleId })
     .populate('_user')
@@ -237,6 +290,7 @@ exports.buryCapsule = (req, res) => {
       } else {
         capsule.buried = true;
         capsule.unearthDate = util.parseDate(unearthDate);
+        capsules.intendedRecipient = newRecipient;
         let year = capsule.unearthDate.getFullYear();
         let month = capsule.unearthDate.getMonth() + 1;
         let day = capsule.unearthDate.getDate();

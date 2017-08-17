@@ -4,11 +4,29 @@ angular.module('app')
   // var STORE_URL = 'http://localhost:3000';
   var STORE_URL = '';
 
-  const filterCaps = function(filterMethod, userId, cb) {
+  const filterCaps = function(filterMethod, userId, userEmail, cb) {
     $http({
       url: `${STORE_URL}/capsules/${filterMethod}`,
       method: 'POST',
-      data: {userId: userId},
+      data: {userId: userId, email: userEmail },
+      contentType: 'application/json',
+      withCredentials: true
+    })
+    .then(function(res) {
+      // gets all the capsules return matching the filer
+      console.log(res.data, '============================')
+      cb(null, res.data);
+    })
+    .catch(function(err) {
+      cb(err);
+    });
+  };
+
+  const getCapsBySecret = function(secret, userEmail, cb) {
+    $http({
+      url: `${STORE_URL}/capsules/${filterMethod}`,
+      method: 'POST',
+      data: {userId: userId, email: userEmail },
       contentType: 'application/json',
       withCredentials: true
     })
@@ -19,14 +37,15 @@ angular.module('app')
     .catch(function(err) {
       cb(err);
     });
-  };
+  }
 
-  const createCap = function(userId, cb) {
+//change the angular front end so that it takes a capsule name
+  const createCap = function(userId, capsuleName, cb) {
 
     $http({
       url: `${STORE_URL}/create`,
       method: 'POST',
-      data: {userId: userId},
+      data: {userId: userId, capsuleName: capsuleName},
       contentType: 'application/json',
       withCredentials: true
     })
@@ -40,6 +59,7 @@ angular.module('app')
 
   };
 
+//change the angular front end so it wont let you change if capsule name is empty
   const saveCap = function(inputObj, cb) {
 
     $http({
@@ -59,6 +79,7 @@ angular.module('app')
 
   };
 
+//change angular front end so that the input actually takes in an array of contact
   const bury = function(input, cb) {
     console.log('input', input);
 

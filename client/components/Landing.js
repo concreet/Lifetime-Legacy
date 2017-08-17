@@ -21,8 +21,8 @@ angular.module('app')
       if (err) {
         this.error = true
       } else {
-        $scope.$ctrl.userId = res;
-
+        //$scope.$ctrl.userId = res;
+        // this.updateuser(err, res);
         // Sign them in if successful sign up
         this.handleSignIn(email, password)
         setTimeout(this.toggle, 100);
@@ -40,12 +40,9 @@ angular.module('app')
       if (err) {
         this.error = true;
       } else {
-        $scope.$ctrl.email = email;
+        this.updateuser(err, res);
         $scope.username = '';
         $scope.password = '';
-        $scope.$ctrl.userId = res;
-        $scope.$ctrl.signedIn = true;
-        $scope.$ctrl.init(res, obj.email);
       }
   	})
   }
@@ -65,6 +62,7 @@ angular.module('app')
 .component('landingPage', {
   controller: 'LandingCtrl',
   bindings: {
+    updateuser: '<',
   	signedIn: '=',
     userId: '=',
     init: '=',
