@@ -152,7 +152,7 @@ angular.module('app')
         this.view = true;
       }
     } else {
-      Caps.filterCaps('all', $scope.$ctrl.userId, (err, res) => {
+      Caps.filterCaps('all', this.email, $scope.$ctrl.userId, (err, res) => {
         if (!err) {
           $scope.$ctrl.capsData = res;
         } else {
