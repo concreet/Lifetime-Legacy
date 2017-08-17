@@ -1,36 +1,28 @@
 angular.module('app')
-.service("VideoMedia", ["$q",
-  function($q) {
-    navigator.getUserMedia =
-      navigator.getUserMedia ||
-      navigator.webkitGetUserMedia ||
-      navigator.mozGetUserMedia;
+.factory("VideoMedia", function() {
 
-    var constraints = {
-      audio: true,
-      video: true
-    };
 
-    var deferred = $q.defer();
-
-    var get = function() {
-      navigator.getUserMedia(
-      	constraints, 
-      	function(stream) {
-          deferred.resolve(stream);
-        },
-        function errorCallback(error) {
-          console.log("navigator.getUserMedia error: ", error);
-          deferred.reject(error);
-        }
-      );
-
-      return deferred.promise;
-    };
-
-    return {
-      get: get
-      //above returns a promise that will be fulfilled once stream resolves
-    };
+  const handleSuccess = function(stream) {
+    var gumVideo = document.querySelector('video#gum');
+    console.log('getUserMedia() got stream: ', stream);
+    window.stream = stream;
+    if (window.URL) {
+      gumVideo.src = window.URL.createObjectURL(stream);
+    } else {
+      gumVideo.src = stream;
+    }
   }
-]);
+
+  const handleError = function(error) {
+    console.log('navigator.getUserMedia error: ', error);
+  }
+
+
+  return {
+    handleSuccess: handleSuccess,
+    handleError: handleError,
+  }
+
+
+
+});

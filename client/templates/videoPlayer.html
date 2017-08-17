@@ -1,7 +1,8 @@
 <div id="addAudioVideo">
   <div id="audioVideoList">
+    <video id="gum" autoplay muted></video>
     <video id="cap-video" ng-src="{{videostream}}" autoplay></video>
   </div>
   <!-- <button id="addAudio">Add Audio</button> -->
-  <button id="addVideo" ng-click="$ctrl.captureVideo()">Record Video</button>
+  <button id="addVideo" ng-click="$ctrl.runVid()">Record Video</button>
 </div>

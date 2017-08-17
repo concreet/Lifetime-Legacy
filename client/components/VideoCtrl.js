@@ -21,22 +21,67 @@ angular.module('app')
     });
     //*****
 
-    
-    this.captureVideo = function() {
-      VideoMedia.get().then(function(stream) {
-        console.log("starting video", stream);
-        window.stream = stream; // stream available to console for dev
-        if (window.URL) {
-          console.log("using window.URL:  ", window.URL);
-          $scope.videostream = $sce.trustAsResourceUrl(
-            window.URL.createObjectURL(stream)
-          );
-        } else {
-          $scope.videostream = $sce.trustAsResourceUrl(stream);
+    this.startVideo = () => {
+      var constraints = {
+        audio: true,
+        video: true
+      };
+      var recordedVideo = document.querySelector('video#cap-video')
+
+      navigator.mediaDevices.getUserMedia(constraints)
+        .then(VideoMedia.handleSuccess).catch(VideoMedia.handleError)
+        .then(this.startRecording);
+
+      recordedVideo.addEventListener('error', function(ev) {
+        console.error('MediaRecording.recordedMedia.error()');
+        alert('Your browser can not play\n\n' + recordedVideo.src
+          + '\n\n media clip. event: ' + JSON.stringify(ev));
+      }, true);
+    } 
+
+    this.startRecording = () => {
+      var recordedBlobs, mediaRecorder
+      recordedBlobs = [];
+      var options = {mimeType: 'video/webm;codecs=vp9'};
+      if (!MediaRecorder.isTypeSupported(options.mimeType)) {
+        console.log(options.mimeType + ' is not Supported');
+        options = {mimeType: 'video/webm;codecs=vp8'};
+        if (!MediaRecorder.isTypeSupported(options.mimeType)) {
+          console.log(options.mimeType + ' is not Supported');
+          options = {mimeType: 'video/webm'};
+          if (!MediaRecorder.isTypeSupported(options.mimeType)) {
+            console.log(options.mimeType + ' is not Supported');
+            options = {mimeType: ''};
+          }
         }
-      });
-    };
-  }
+      }
+      try {
+        mediaRecorder = new MediaRecorder(window.stream, options);
+      } catch (e) {
+        console.error('Exception while creating MediaRecorder: ' + e);
+        alert('Exception while creating MediaRecorder: '
+          + e + '. mimeType: ' + options.mimeType);
+        return;
+      }
+      console.log('Created MediaRecorder', mediaRecorder, 'with options', options);
+      mediaRecorder.onstop = handleStop;
+      mediaRecorder.ondataavailable = handleDataAvailable;
+      mediaRecorder.start(10); // collect 10ms of data
+      console.log('MediaRecorder started', mediaRecorder);
+    }
+
+    this.runVid = () => {
+      var recButton = document.querySelector('button#addVideo')
+      if(recButton.textContent === 'Record Video'){
+        this.startVideo();
+        //now start recording somehow
+        
+        recButton.textContent = 'Stop';
+      } else if(recButton.textContent === 'Stop'){
+
+      }
+    }
+  } //end function
 ])
 
 .component('videoCtrl', {
