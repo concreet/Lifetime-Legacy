@@ -14,6 +14,7 @@ angular.module('app')
     })
     .then(function(res) {
       // gets all the capsules return matching the filer
+      console.log(res.data, '============================')
       cb(null, res.data);
     })
     .catch(function(err) {
@@ -21,7 +22,7 @@ angular.module('app')
     });
   };
 
-  const getCapsBySecret = function(sercret, cb) {
+  const getCapsBySecret = function(secret, userEmail, cb) {
     $http({
       url: `${STORE_URL}/capsules/${filterMethod}`,
       method: 'POST',
@@ -38,13 +39,13 @@ angular.module('app')
     });
   }
 
-//change the angular front end
-  const createCap = function(userId, cb) {
+//change the angular front end so that it takes a capsule name
+  const createCap = function(userId, capsuleName, cb) {
 
     $http({
       url: `${STORE_URL}/create`,
       method: 'POST',
-      data: {userId: userId},
+      data: {userId: userId, capsuleName: capsuleName},
       contentType: 'application/json',
       withCredentials: true
     })
@@ -58,6 +59,7 @@ angular.module('app')
 
   };
 
+//change the angular front end so it wont let you change if capsule name is empty
   const saveCap = function(inputObj, cb) {
 
     $http({

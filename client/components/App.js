@@ -9,10 +9,12 @@ angular.module('app', [])
 
   this.setUser = function(err, user) {
     console.log('user', user);
+
     if (user._id) {
       this.signedIn = true;
       this.userId = user._id;
       this.email = user.email;
+      this.init(user._id);
     }
   }.bind(this);
 
@@ -24,9 +26,11 @@ angular.module('app', [])
 
   // Initial GET request upon successful sign in.
   // id passed from Landing.js signin
-  this.init = (id, email) => {
 
-    Contacts.getContacts(email, (err, data)=>{
+  this.init = (id) => {
+    // console.log(this.email, '====ljzlxcvjlxvjld;s=');
+    console.log(this.email, this.userId, this.signedIn, '????')
+    Contacts.getContacts(this.email, (err, data)=>{
       this.contacts = data;
     })
 

@@ -54,7 +54,7 @@ exports.signin = (req, res) => {
           console.log(`Successful user signin for email ${req.body.email}`);
           req.session.user = user;
           console.log('proof that a session has been editted and a new pro was added:', req.session);
-          res.send(user._id);
+          res.send(req.session.user);
         }
       });
     }
@@ -163,9 +163,9 @@ exports.getOtherCapsules = (req, res) => {
   });
 }
 
-//expecting req.body.sercret
-exports.getOtherCapsulesBySercret=(req, res) => {
-  Capsule.find({ intendedRecipient: { $elemMatch: { secret:req.body.sercret }}, buried: true }, (err, capsules) => {
+//expecting req.body.sercret and req.body.userEmail
+exports.getOtherCapsulesBySecret=(req, res) => {
+  Capsule.find({ intendedRecipient: { $elemMatch: { secret:req.body.secret }}, buried: true }, (err, capsules) => {
     if (err) {
       console.error(`Get other capsules by secret retrieval error: ${err}`);
       res.sendStatus(404);
@@ -174,7 +174,20 @@ exports.getOtherCapsulesBySercret=(req, res) => {
       res.sendStatus(404);
     } else {
       console.log('Successfully retrieved other capsules from the sercret');
-      res.send(capsules);
+      for (let contact of capsules.intendedRecipient) {
+        if (contact.secret === req.body.secret) {
+          contact.email = req.body.email;
+        }
+      }
+      capsules.save((err, user) => {
+        if (err) {
+          console.error(err);
+          res.sendStatus(404);
+        } else {
+          console.log(`Successfully add user email ${req.body.email} as a recipient to this capsule`);
+          res.send(capsules);
+        }
+      })
     }
   });
 }
@@ -198,7 +211,7 @@ exports.createCapsule = (req, res) => {
   console.log(req.body, 'request body----');
   let newCapsule = Capsule({
     _user: req.body.userId,
-    capsuleName: '',
+    capsuleName: req.body.capsuleName,
     contents: [],
     buried: false,
     unearthed: false,
