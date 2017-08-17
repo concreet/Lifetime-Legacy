@@ -62,3 +62,6 @@ typings/
 
 # Any videos
 *.webm
+
+//AWS Config keys
+client/aws.config.js

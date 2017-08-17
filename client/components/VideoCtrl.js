@@ -4,28 +4,40 @@ angular.module('app')
 
     //*****
     //insert AWS config here
+
     var albumBucketName = 'bchilds-greenfield-legacy-timecapsule';
-    var bucketRegion = 'us-east-2'; // Region;
     var IdentityPoolId = 'us-east-2:e876f515-6fe2-4e44-930b-600544fbd60b';
 
     AWS.config.update({
-      region: bucketRegion,
       credentials: new AWS.CognitoIdentityCredentials({
+        // region: 'us-east-1',
         IdentityPoolId: IdentityPoolId
-      })
+      }),
+      // accessKeyId: window.AWS_ACCESS_KEY,
+      // secretAccessKey: window.AWS_SECRET_KEY
     });
-
+    console.log(AWS.config)
     var s3 = new AWS.S3({
       apiVersion: '2006-03-01',
       params: {Bucket: albumBucketName}
     });
     //*****
 
-    this.recordedVideo = document.querySelector('video#cap-video')
+    this.recordedVideo = document.querySelector('video#cap-video');
     this.mediaRecorder;
     this.recordedBlobs = [];
     this.recButton = document.querySelector('button#addVideo');
 
+    this.getVideos = () => {
+      //takes in something from $scope to determine which video to get
+      s3.listObjectsV2({
+        MaxKeys: 5,
+      }, function(err, data){
+        if(err) console.log(err)
+        console.log(data)
+      })
+      console.log(AWS.config)
+    }
 
     this.handleDataAvailable = (event) => {
       if (event.data && event.data.size > 0) {
@@ -89,6 +101,7 @@ angular.module('app')
 
     this.runVid = () => {
       if(this.recButton.textContent === 'Record Video'){
+        this.recordedBlobs = [];
         this.startVideo();
         this.recButton.textContent = 'Stop';
       } else if(this.recButton.textContent === 'Stop'){
