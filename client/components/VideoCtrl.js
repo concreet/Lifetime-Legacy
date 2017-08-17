@@ -6,17 +6,23 @@ angular.module('app')
     //insert AWS config here
 
     var albumBucketName = 'bchilds-greenfield-legacy-timecapsule';
-    var IdentityPoolId = 'us-east-2:e876f515-6fe2-4e44-930b-600544fbd60b';
 
-    AWS.config.update({
-      credentials: new AWS.CognitoIdentityCredentials({
-        // region: 'us-east-1',
-        IdentityPoolId: IdentityPoolId
-      }),
-      // accessKeyId: window.AWS_ACCESS_KEY,
-      // secretAccessKey: window.AWS_SECRET_KEY
+    AWS.config.region = 'us-east-1'; // Region
+    AWS.config.credentials = new AWS.CognitoIdentityCredentials({
+        IdentityPoolId: 'us-east-1:d2bcb54e-2e0d-49e8-b4fa-ad7a899e5aaf',
     });
-    console.log(AWS.config)
+
+    // AWS.config.update({
+    //   // credentials: new AWS.CognitoIdentityCredentials({
+    //   //   // region: 'us-east-1',
+    //   //   IdentityPoolId: IdentityPoolId
+    //   // }),
+    //   accessKeyId: window.AWS_ACCESS_KEY,
+    //   secretAccessKey: window.AWS_SECRET_KEY
+    // });
+
+    //init logging
+
     var s3 = new AWS.S3({
       apiVersion: '2006-03-01',
       params: {Bucket: albumBucketName}
@@ -29,14 +35,15 @@ angular.module('app')
     this.recButton = document.querySelector('button#addVideo');
 
     this.getVideos = () => {
+      //will be getObject
       //takes in something from $scope to determine which video to get
-      s3.listObjectsV2({
-        MaxKeys: 5,
-      }, function(err, data){
-        if(err) console.log(err)
-        console.log(data)
-      })
-      console.log(AWS.config)
+      // s3.listObjectsV2({
+      //   MaxKeys: 5,
+      // }, function(err, data){
+      //   if(err) console.log(err)
+      //   console.log('DATA: ', data)
+      // })
+      console.log('Scope: ', $scope.$ctrl.capsule)
     }
 
     this.handleDataAvailable = (event) => {
@@ -109,6 +116,20 @@ angular.module('app')
         this.recButton.textContent = 'Record Video';
       }
     }
+
+    this.uploadToS3 = () => {
+      console.log($scope.$ctrl.capsule)
+      if(this.recordedBlobs.length > 0) {
+        let file = new Blob(this.recordedBlobs, {type: 'video/webm'});
+        file.name = $scope.$ctrl.capsule.capsuleId + 'someUniqueIdentifier';
+        file.lastModifiedDate = new Date();
+        var params = {Body: file, Key: file.name};
+        s3.upload(params, function(err, data) {
+          console.log(err, data);
+        });
+      }
+    }
+
   } //end function
 ])
 
@@ -116,8 +137,9 @@ angular.module('app')
   controller: 'VideoCtrl',
 
   //will need capsule ID and momento index
+  //capsule will either be capsuleToEdit or... currentCap?
   bindings: {
-
+    capsule: '=',
   },
 
   templateUrl: '../templates/videoPlayer.html'

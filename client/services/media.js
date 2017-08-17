@@ -21,6 +21,9 @@ angular.module('app')
     console.log('Recorder stopped: ', event);
   }
 
+
+  //put S3 storage and retrieval here
+
   return {
     handleSuccess: handleSuccess,
     handleError: handleError,
