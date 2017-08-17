@@ -38,7 +38,7 @@ angular.module('app')
     .catch(function(err) {
       cb(err);
     });
-    
+
   };
 
 

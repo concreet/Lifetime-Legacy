@@ -1,5 +1,5 @@
 angular.module('app')
-.controller('HomeCtrl', function($scope, Caps, Auth) {
+.controller('HomeCtrl', function($scope, Caps, Auth, Contacts) {
 
   this.view = true;
   this.editingViewCapsule = false;
@@ -9,6 +9,10 @@ angular.module('app')
   this.currentCap = [];
   this.named = false;
   this.addContactPopupBool = true;
+  this.addContactName = '';
+  this.addContactEmailOrPhrase = '';
+  this.valueEmailOrPhrase = ['Email', 'Phrase'];
+
 
   this.handleFilter = function(event) {
     Caps.filterCaps(event.target.id, $scope.$ctrl.userId, (err, res) => {
@@ -20,10 +24,29 @@ angular.module('app')
     });
   }
 
+  this.addContact = function() {
+    var field = this.valueEmailOrPhrase[0].toLowerCase();
+    var contactObj = {}
+      contactObj.name = this.addContactName,
+      contactObj[field] = this.addContactEmailOrPhrase
+
+    // console.log('submitted', $scope.$ctrl.email, contactObj);
+    Contacts.addContact($scope.$ctrl.email, contactObj, ()=>{
+      console.log('callback!')
+    });
+    this.addContactPopupBool = !this.addContactPopupBool;
+  }
+
+  this.toggleEmailOrPhrase = function(e) {
+    // e.preventDefault();
+    this.valueEmailOrPhrase = this.valueEmailOrPhrase.reverse();
+    this.addContactEmailOrPhrase = '';
+  }
+
   this.addContactPopup = function(event) {
     console.log('clicked', this.addContactPopupBool);
-    this.addContactPopupBool = false;
-    console.log('clicked', this.addContactPopupBool);  
+    this.addContactPopupBool = !this.addContactPopupBool;
+    console.log('clicked', this.addContactPopupBool);
   }
 
   this.editCapsule = (capsule) => {
