@@ -41,9 +41,13 @@ app.post('/removeContact',  util.removeContact);
 
 app.post('/getContacts', util.getContacts);
 
-app.post('/capsules/all', util.isLoggedOn, util.getAllCapsules);
+app.post('/capsules/all', util.getAllCapsules);
 
 app.post('/capsules/buried', util.isLoggedOn, util.getBuriedCapsules);
+
+app.post('/capsules/other', util.getOtherCapsules);
+
+app.post('/secretCapsules', util.getOtherCapsulesBySecret);
 
 app.get('/session', util.checkSession);
 
@@ -51,7 +55,7 @@ app.get('/logout', util.destroySession);
 
 app.post('/capsules/inProgress', util.isLoggedOn, util.inProgress);
 
-app.post('/create', util.isLoggedOn, util.createCapsule);
+app.post('/create', util.createCapsule);
 
 app.put('/edit', util.isLoggedOn, util.editCapsule);
 

@@ -30,7 +30,7 @@ angular.module('app', [])
       this.contacts = data;
     })
 
-    Caps.filterCaps('all', id, (err, allCaps) => {
+    Caps.filterCaps('all', id, this.email, (err, allCaps) => {
   	  if (err) {
   	    throw new Error(err);
   	  } else {

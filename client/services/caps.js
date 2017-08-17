@@ -4,11 +4,11 @@ angular.module('app')
   // var STORE_URL = 'http://localhost:3000';
   var STORE_URL = '';
 
-  const filterCaps = function(filterMethod, userId, cb) {
+  const filterCaps = function(filterMethod, userId, userEmail, cb) {
     $http({
       url: `${STORE_URL}/capsules/${filterMethod}`,
       method: 'POST',
-      data: {userId: userId},
+      data: {userId: userId, email: userEmail },
       contentType: 'application/json',
       withCredentials: true
     })
@@ -21,6 +21,24 @@ angular.module('app')
     });
   };
 
+  const getCapsBySecret = function(sercret, cb) {
+    $http({
+      url: `${STORE_URL}/capsules/${filterMethod}`,
+      method: 'POST',
+      data: {userId: userId, email: userEmail },
+      contentType: 'application/json',
+      withCredentials: true
+    })
+    .then(function(res) {
+      // gets all the capsules return matching the filer
+      cb(null, res.data);
+    })
+    .catch(function(err) {
+      cb(err);
+    });
+  }
+
+//change the angular front end
   const createCap = function(userId, cb) {
 
     $http({
@@ -59,6 +77,7 @@ angular.module('app')
 
   };
 
+//change angular front end so that the input actually takes in an array of contact
   const bury = function(input, cb) {
     console.log('input', input);
 
