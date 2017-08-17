@@ -21,27 +21,36 @@ angular.module('app')
     });
     //*****
 
+    this.recordedVideo = document.querySelector('video#cap-video')
+    this.mediaRecorder;
+    this.recordedBlobs = [];
+    this.recButton = document.querySelector('button#addVideo');
+
+
+    this.handleDataAvailable = (event) => {
+      if (event.data && event.data.size > 0) {
+        this.recordedBlobs.push(event.data);
+      }
+    }
+
     this.startVideo = () => {
       var constraints = {
         audio: true,
         video: true
       };
-      var recordedVideo = document.querySelector('video#cap-video')
 
       navigator.mediaDevices.getUserMedia(constraints)
         .then(VideoMedia.handleSuccess).catch(VideoMedia.handleError)
         .then(this.startRecording);
 
-      recordedVideo.addEventListener('error', function(ev) {
+      this.recordedVideo.addEventListener('error', function(ev) {
         console.error('MediaRecording.recordedMedia.error()');
-        alert('Your browser can not play\n\n' + recordedVideo.src
+        alert('Your browser can not play\n\n' + this.recordedVideo.src
           + '\n\n media clip. event: ' + JSON.stringify(ev));
       }, true);
     } 
 
     this.startRecording = () => {
-      var recordedBlobs, mediaRecorder
-      recordedBlobs = [];
       var options = {mimeType: 'video/webm;codecs=vp9'};
       if (!MediaRecorder.isTypeSupported(options.mimeType)) {
         console.log(options.mimeType + ' is not Supported');
@@ -56,29 +65,35 @@ angular.module('app')
         }
       }
       try {
-        mediaRecorder = new MediaRecorder(window.stream, options);
+        this.mediaRecorder = new MediaRecorder(window.stream, options);
       } catch (e) {
         console.error('Exception while creating MediaRecorder: ' + e);
         alert('Exception while creating MediaRecorder: '
           + e + '. mimeType: ' + options.mimeType);
         return;
       }
-      console.log('Created MediaRecorder', mediaRecorder, 'with options', options);
-      mediaRecorder.onstop = handleStop;
-      mediaRecorder.ondataavailable = handleDataAvailable;
-      mediaRecorder.start(10); // collect 10ms of data
-      console.log('MediaRecorder started', mediaRecorder);
+      console.log('Created MediaRecorder', this.mediaRecorder, 'with options', options);
+      this.mediaRecorder.onstop = VideoMedia.handleStop;
+      this.mediaRecorder.ondataavailable = this.handleDataAvailable;
+      this.mediaRecorder.start(10); // collect 10ms of data
+      console.log('MediaRecorder started', this.mediaRecorder);
+    }
+
+    this.stopRecording = () => {
+      this.mediaRecorder.stop();
+      console.log('Recorded Blobs: ', this.recordedBlobs);
+      this.recordedVideo.controls = true;
+      var superBuffer = new Blob(this.recordedBlobs, {type: 'video/webm'});
+      this.recordedVideo.src = window.URL.createObjectURL(superBuffer);
     }
 
     this.runVid = () => {
-      var recButton = document.querySelector('button#addVideo')
-      if(recButton.textContent === 'Record Video'){
+      if(this.recButton.textContent === 'Record Video'){
         this.startVideo();
-        //now start recording somehow
-        
-        recButton.textContent = 'Stop';
-      } else if(recButton.textContent === 'Stop'){
-
+        this.recButton.textContent = 'Stop';
+      } else if(this.recButton.textContent === 'Stop'){
+        this.stopRecording();
+        this.recButton.textContent = 'Record Video';
       }
     }
   } //end function

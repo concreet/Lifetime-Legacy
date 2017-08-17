@@ -17,10 +17,14 @@ angular.module('app')
     console.log('navigator.getUserMedia error: ', error);
   }
 
+  const handleStop = function(event) {
+    console.log('Recorder stopped: ', event);
+  }
 
   return {
     handleSuccess: handleSuccess,
     handleError: handleError,
+    handleStop: handleStop,
   }
 
 
