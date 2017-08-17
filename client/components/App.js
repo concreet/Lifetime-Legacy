@@ -1,12 +1,14 @@
 angular.module('app', [])
-.controller('AppCtrl', function($scope, Caps, Auth) {
+.controller('AppCtrl', function($scope, Caps, Auth, Contacts) {
 
   this.signedIn = false;
   this.userId = '';
   this.email = '';
+  this.contacts = [];
+
 
   this.setUser = function(err, user) {
-    // console.log(user);
+    console.log('user', user);
     if (user._id) {
       this.signedIn = true;
       this.userId = user._id;
@@ -15,30 +17,18 @@ angular.module('app', [])
   }.bind(this);
 
   Auth.sessionCheck(this.setUser);
+  // Auth.sessionCheck(this.setUser);
   // All capsules belonging to a user.
   // Filtering done on backend.
   this.capsData = [];
 
-  //fake data
-  this.contacts = [
-    {
-      name: 'dem',
-      email: 'dm@gmail.com'
-    },
-    {
-      name: 'ben',
-      token: 'thisIsAToken'
-    },
-    {
-      name: 'lina',
-      token: 'thisisanothertoken'
-    }
-  ]
-  //end fake data
-
   // Initial GET request upon successful sign in.
   // id passed from Landing.js signin
-  this.init = (id) => {
+  this.init = (id, email) => {
+
+    Contacts.getContacts(email, (err, data)=>{
+      this.contacts = data;
+    })
 
     Caps.filterCaps('all', id, (err, allCaps) => {
   	  if (err) {
@@ -47,7 +37,6 @@ angular.module('app', [])
         this.capsData = allCaps;
       }
     });
-
   }
 })
 .component('app', {

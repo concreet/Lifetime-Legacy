@@ -31,6 +31,7 @@
     <div class="btn" id="addContact" ng-click="$ctrl.addContactPopup()">
       Add contact
     </div>
+    <!-- modal start -->
     <div style="display:block; background-color:rgba(255, 255, 255, .5)" id="viewModal" class="modal fade-in" role="dialog" ng-hide="$ctrl.addContactPopupBool">
       <div class="modal-dialog" id="viewModalDialog">
         <div class="modal-content" id="viewModalContent">
@@ -42,16 +43,19 @@
             <p>You can add a contact without an email address.</p>
             <p>Just add a phrase for them to use to redeem their capsules in the future.</p>
             <form ng-submit="$ctrl.addContact()">
+              <a value="Email" ng-click="$ctrl.toggleEmailOrPhrase($event)">Email:</a> or <a value="Phrase" ng-click="$ctrl.toggleEmailOrPhrase($event)">Phrase:</a><br>
               Contact Name:<br>
               <input ng-model="$ctrl.addContactName" type="text" name="contactName"><br>
-              <a ng-click="$ctrl.toggleEmailOrPhrase(e)">Email:</a> or <a ng-click="$ctrl.toggleEmailOrPhrase(e)">Phrase:</a><br>
-              <input ng-model="$ctrl.addContactEmailOrPhrase" type="text" name="{{$ctrl.valueEmailOrPhrase[0]}}" placeholder="{{$ctrl.valueEmailOrPhrase[0]}}"><br>
+              {{$ctrl.valueEmailOrPhrase}}:<br>
+              <input ng-model="$ctrl.addContactEmailOrPhrase" type="text" name="{{$ctrl.valueEmailOrPhrase}}" ><br>
               <input type="submit" id="submit" value="Submit" />
+              <input type="button" id="cancel" value="Cancel" ng-click="$ctrl.addContactPopup()"/>
             </form>
           </div>
         </div>
       </div>
     </div>
+    <!-- modal end -->
   </div>
   <div class="content">
     <div ng-show="$ctrl.view">
