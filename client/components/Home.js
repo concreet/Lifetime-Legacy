@@ -36,7 +36,8 @@ angular.module('app')
 
   this.handleFilter = function(event) {
 
-    Caps.filterCaps(event.target.id, $scope.$ctrl.userId, (err, res) => {
+    
+    Caps.filterCaps(event.target.id, $scope.$ctrl.userId, this.email, (err, res) => {
       if (!err) {
         $scope.$ctrl.capsData = res;
       } else {
@@ -92,40 +93,41 @@ angular.module('app')
     if (this.view) {
       console.log('userId', $scope.$ctrl.userId);
       console.log('email', $scope.$ctrl.email);
-
-      Caps.createCap($scope.$ctrl.userId,(err, capsuleId) => {
-        if (err) {
-          console.log('You dun screwed up');
-          throw new Error(err);
-        } else {
-          this.capsuleName = '';
-          this.capsuleId = capsuleId;
-          this.capsuleToEdit = {};
-          this.named = false;
-          this.view = false;
-        }
-      })
-    } else {
-      var saveProgress = confirm('Are you sure you want to start a new capsule?');
-      if(saveProgress) {
-        Caps.createCap($scope.$ctrl.userId,(err, capsuleId) => {
-          if (err) {
-            console.log('You dun screwed up');
-            throw new Error(err);
-          } else {
-            this.named = false;
-            this.capsuleName = '';
-            this.currentCap = [];
-            this.capsuleId = capsuleId;
-            this.capsuleToEdit = {};
-            this.named = false;
-            this.view = false;
-            this.editingViewCapsule = false;
-            console.log(':D')
-          }
-        })
-      }
+      this.view = false;
+      // Caps.createCap($scope.$ctrl.userId, 'test', (err, capsuleId) => {
+      //   if (err) {
+      //     console.log('You dun screwed up');
+      //     throw new Error(err);
+      //   } else {
+      //     this.capsuleName = '';
+      //     this.capsuleId = capsuleId;
+      //     this.capsuleToEdit = {};
+      //     this.named = false;
+      //     this.view = false;
+      //   }
+      // })
     }
+    // } else {
+    //   var saveProgress = confirm('Are you sure you want to start a new capsule?');
+    //   if(saveProgress) {
+    //     Caps.createCap($scope.$ctrl.userId, 'test', (err, capsuleId) => {
+    //       if (err) {
+    //         console.log('You dun screwed up');
+    //         throw new Error(err);
+    //       } else {
+    //         this.named = false;
+    //         this.capsuleName = '';
+    //         this.currentCap = [];
+    //         this.capsuleId = capsuleId;
+    //         this.capsuleToEdit = {};
+    //         this.named = false;
+    //         this.view = false;
+    //         this.editingViewCapsule = false;
+    //         console.log(':D')
+    //       }
+    //     })
+    //   }
+    // }
   }
 
 
@@ -134,16 +136,17 @@ angular.module('app')
     // check if the page is in "view" or "create"
     if(!this.view) {
 
-      if (!buried) {
-        var saveProgress = confirm('Are you sure you want to leave this capsule?\nWe\'ll save this one if you do.');
-      } else {
-        var saveProgress = true;
-      }
+      // if (!buried) {
+      //   var saveProgress = confirm('Are you sure you want to leave this capsule?\nWe\'ll save this one if you do.');
+      // } else {
+      //   var saveProgress = true;
+      // }
 
-      if (saveProgress) {
-        Caps.filterCaps('all', this.email, $scope.$ctrl.userId, (err, res) => {
+      // if (saveProgress) {
+        Caps.filterCaps('all', this.userId, this.email, (err, res) => {
           if (!err) {
-            $scope.$ctrl.capsData = res;
+            this.capsData = res;
+            console.log(this.capsData, 'need to check this');
           } else {
             throw new Error(err);
           }
@@ -154,15 +157,15 @@ angular.module('app')
         this.named = false;
         this.view = true;
       }
-    } else {
-      Caps.filterCaps('all', this.email, $scope.$ctrl.userId, (err, res) => {
-        if (!err) {
-          $scope.$ctrl.capsData = res;
-        } else {
-          throw new Error(err);
-        }
-      });
-    }
+    // } else {
+      // Caps.filterCaps('all', $scope.$ctrl.userId, this.email, (err, res) => {
+      //   if (!err) {
+      //     $scope.$ctrl.capsData = res;
+      //   } else {
+      //     throw new Error(err);
+      //   }
+      // });
+    // }
   }.bind(this)
 
 
@@ -176,7 +179,8 @@ angular.module('app')
         if (err) {
           throw new Error(err);
         } else {
-          this.toggleToView(true);
+          //this.toggleToView(true);
+          this.init(this.userId);
         }
       });
     }
@@ -206,7 +210,8 @@ angular.module('app')
     signedIn: '=',
     email: '<',
     capsData: '=',
-    contacts: '='
+    contacts: '=',
+    init: '<'
   },
   templateUrl: '../templates/home.html'
 })
