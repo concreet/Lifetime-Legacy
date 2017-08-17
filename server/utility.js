@@ -115,9 +115,9 @@ exports.getContacts = (req, res) => {
 //need to update http
 exports.getAllCapsules = (req, res) => {
   console.log('req body userId', req.body);
-  
-  Capsule.find({ 
-    $or: [{ intendedRecipient: { $elemMatch: { email:req.body.email }}, buried: true }, { _user: req.body.userId }]}, 
+
+  Capsule.find({
+    $or: [{ intendedRecipient: { $elemMatch: { email:req.body.email }}, buried: true }, { _user: req.body.userId }]},
     (err, capsules) => {
     if (err) {
       console.error(`All capsules retrieval error: ${err}`);
@@ -289,8 +289,8 @@ exports.buryCapsule = (req, res) => {
         res.sendStatus(404);
       } else {
         capsule.buried = true;
-        capsule.unearthDate = util.parseDate(unearthDate);
-        capsules.intendedRecipient = newRecipient;
+        capsule.unearthDate = exports.parseDate(unearthDate);
+        capsule.intendedRecipient = newRecipient;
         let year = capsule.unearthDate.getFullYear();
         let month = capsule.unearthDate.getMonth() + 1;
         let day = capsule.unearthDate.getDate();

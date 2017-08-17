@@ -12,6 +12,8 @@ angular.module('app')
   this.addContactName = '';
   this.addContactEmailOrPhrase = '';
   this.valueEmailOrPhrase = 'Email';
+  this.selectedContacts = [];
+
   //fake data
 
 
@@ -19,7 +21,7 @@ angular.module('app')
     Contacts.getContacts(this.email, (err, data)=>{
       $scope.$ctrl.contacts = data;
     })
-  }
+  }.bind(this)
 
   this.compareContacts = function(cb) {
     for (var contact of $scope.$ctrl.contacts) {
@@ -33,7 +35,7 @@ angular.module('app')
   }
 
   this.handleFilter = function(event) {
-    
+
     Caps.filterCaps(event.target.id, $scope.$ctrl.userId, (err, res) => {
       if (!err) {
         $scope.$ctrl.capsData = res;

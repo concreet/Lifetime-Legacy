@@ -20,7 +20,7 @@ angular.module('app')
       } else {
         $scope.momentoName = '';
         $scope.input = '';
-      } 
+      }
     });
   }
 
@@ -60,7 +60,7 @@ angular.module('app')
   this.getIndex = (index) => {
     this.capIndex = index;
   }
-  
+
   this.editMomento = (input, momentoName) => {
     console.log(this.capIndex, input, momentoName);
     $scope.momentoName = momentoName;
@@ -142,7 +142,7 @@ angular.module('app')
         $scope.$ctrl.capsuleName = '';
         $scope.input = '';
         $scope.date = '';
-        $scope.recipient = '';
+        this.recipient = '';
         this.currentCap = [];
         $scope.$ctrl.viewToggle(true);
      }
@@ -153,17 +153,17 @@ angular.module('app')
     // Work around for rendering dynamic content to modal by using jquery
     $('#viewMomentoModal').html(
       `<div class="modal-dialog" id="viewModalDialog">
-      <div class="modal-content" id="viewModalContent"> 
+      <div class="modal-content" id="viewModalContent">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
           <h4 class="modal-title" id="momentoDetails">${$scope.$ctrl.capsuleName}</h4>
         </div>
         <div class="viewModal-body" id="viewModalBody">
-          <div id="momentoDetails"> 
+          <div id="momentoDetails">
 
             <h4>${momento.name}</h4>
             <p id="viewDetails">${momento.input}</p>
-            
+
           </div>
         </div>
       </div>
@@ -182,9 +182,10 @@ angular.module('app')
     named: '=',
     editedCapsuleName: '=',
     viewToggle: '<',
-    currentCap: '=', 
+    currentCap: '=',
     capsuleName: '=',
     deleteCap: '=',
+    contacts: '=',
   },
 
  templateUrl: '../templates/create.html'

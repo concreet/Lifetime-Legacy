@@ -97,7 +97,7 @@
           <input type="text" ng-model="months" placeholder="Months"/>
           <input type="text" ng-model="days" placeholder="Days"/>
           <p>Intended Recipient.</p>
-          <input type="text" ng-model="recipient"/>
+          <select ng-options="contact as contact.name for contact in $ctrl.contacts" ng-model="recipient"></select>
         </div>
 
         <div class="modal-footer">
