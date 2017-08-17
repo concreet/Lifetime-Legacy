@@ -27,7 +27,7 @@
 <div class="main">
   <div class="sidebar">
     <h4>Contacts<h4>
-    <contact ng-repeat="contact in $ctrl.contacts" contact="contact"></contact>
+    <contact ng-repeat="contact in $ctrl.contacts" contact="contact" selected-contacts="$ctrl.selectedContacts" email="$ctrl.email" render-contacts="$ctrl.renderContacts"></contact>
     <div class="btn" id="addContact" ng-click="$ctrl.addContactPopup()">
       Add contact
     </div>
@@ -62,7 +62,7 @@
       <view-page class="col-md-3" ng-repeat="cap in $ctrl.capsData track by $index" cap="cap" index="$index" edit-capsule="$ctrl.editCapsule" delete-cap="$ctrl.deleteCap"> </view-page>
     </div>
     <div ng-hide="$ctrl.view">
-      <create-page view-toggle="$ctrl.toggleToView" named="$ctrl.named" capsule-id="$ctrl.capsuleId" capsule-to-edit="$ctrl.capsuleToEdit" editing-view-capsule="$ctrl.editingViewCapsule" view="$ctrl.view" edited-capsule-name="$ctrl.editedCapsuleName" current-cap="$ctrl.currentCap" capsule-name="$ctrl.capsuleName" delete-cap="$ctrl.deleteCap"> </create-page>
+      <create-page view-toggle="$ctrl.toggleToView" named="$ctrl.named" capsule-id="$ctrl.capsuleId" capsule-to-edit="$ctrl.capsuleToEdit" editing-view-capsule="$ctrl.editingViewCapsule" view="$ctrl.view" edited-capsule-name="$ctrl.editedCapsuleName" current-cap="$ctrl.currentCap" capsule-name="$ctrl.capsuleName" delete-cap="$ctrl.deleteCap" contacts="$ctrl.contacts"> </create-page>
     </div>
   </div>
 </div>
