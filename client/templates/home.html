@@ -11,7 +11,7 @@
   </span>
 
   <span ng-show="$ctrl.view">
-    <div class="filterBar">
+    <div class="filterBar"> View:
       <div class="btn filterButton" id="all" ng-click="$ctrl.handleFilter($event)">
         All
       </div>
@@ -26,20 +26,25 @@
 </nav>
 <div class="main">
   <div class="sidebar">
-    <h4>Contacts<h4>
-    <contact ng-repeat="contact in $ctrl.contacts" contact="contact" selected-contacts="$ctrl.selectedContacts" email="$ctrl.email" render-contacts="$ctrl.renderContacts"></contact>
-    <div class="btn" id="addContact" ng-click="$ctrl.addContactPopup()">
-      Add contact
+    <div>
+      <h4>Retrieve by secret</h4>
+      <input ng-model="" type="text" name="" placeholder="NOT WORKING"><br>
+      <input type="submit" id="submit" value="Submit"/>
     </div>
-    <!-- modal start -->
-    <div style="display:block; background-color:rgba(255, 255, 255, .5)" id="viewModal" class="modal fade-in" role="dialog" ng-hide="$ctrl.addContactPopupBool">
+    <h4>Contacts<h4>
+      <div class="btn" id="addContact" ng-click="$ctrl.addContactPopup()">
+        Add contact
+      </div>
+    <contact ng-repeat="contact in $ctrl.contacts" contact="contact" selected-contacts="$ctrl.selectedContacts" email="$ctrl.email" render-contacts="$ctrl.renderContacts"></contact>
+    <!-- modal starts here -->
+    <div style="display:block; background-color:rgba(255, 255, 255, .5)" class="modal fade-in" role="dialog" ng-hide="$ctrl.addContactPopupBool">
       <div class="modal-dialog" id="viewModalDialog">
         <div class="modal-content" id="viewModalContent">
           <div class="modal-header">
             <button type="button" class="btn close" data-dismiss="modal"></button>
             <h4 class="modal-title">Add a contact</h4>
           </div>
-          <div class="viewModal-body" id="viewModalBody">
+          <div id="viewModalBody">
             <p>You can add a contact without an email address.</p>
             <p>Just add a phrase for them to use to redeem their capsules in the future.</p>
             <form ng-submit="$ctrl.addContact()">
@@ -62,8 +67,7 @@
       <view-page class="col-md-3" ng-repeat="cap in $ctrl.capsData track by $index" cap="cap" index="$index" edit-capsule="$ctrl.editCapsule" delete-cap="$ctrl.deleteCap"> </view-page>
     </div>
     <div ng-hide="$ctrl.view">
-
-      <create-page view-toggle="$ctrl.toggleToView" named="$ctrl.named" capsule-id="$ctrl.capsuleId" capsule-to-edit="$ctrl.capsuleToEdit" editing-view-capsule="$ctrl.editingViewCapsule" view="$ctrl.view" edited-capsule-name="$ctrl.editedCapsuleName" current-cap="$ctrl.currentCap" capsule-name="$ctrl.capsuleName" delete-cap="$ctrl.deleteCap" userid="$ctrl.userId" contacts="$ctrl.contacts"> </create-page>
+      <create-page view-toggle="$ctrl.toggleToView" named="$ctrl.named" capsule-id="$ctrl.capsuleId" capsule-to-edit="$ctrl.capsuleToEdit" editing-view-capsule="$ctrl.editingViewCapsule" view="$ctrl.view" edited-capsule-name="$ctrl.editedCapsuleName" current-cap="$ctrl.currentCap" capsule-name="$ctrl.capsuleName" delete-cap="$ctrl.deleteCap" contacts="$ctrl.contacts"> </create-page>
     </div>
   </div>
 </div>
