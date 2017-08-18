@@ -118,14 +118,27 @@ angular.module('app')
     }
 
     this.uploadToS3 = () => {
-      console.log($scope.$ctrl.capsule)
       if(this.recordedBlobs.length > 0) {
         let file = new Blob(this.recordedBlobs, {type: 'video/webm'});
-        file.name = $scope.$ctrl.capsule.capsuleId + 'someUniqueIdentifier';
         file.lastModifiedDate = new Date();
+        var dateString = file.lastModifiedDate.toString();
+        dateString = dateString.replace(/\s+/g,"");
+        dateString = dateString.replace(/:|-/g,"");
+        dateString = dateString.replace("(","")
+        dateString = dateString.replace(")","");
+        file.name = $scope.$ctrl.capsule.capsuleId + dateString;
         var params = {Body: file, Key: file.name};
-        s3.upload(params, function(err, data) {
-          console.log(err, data);
+        s3.upload(params, (err, data) => {
+          // console.log(err, data);   
+          this.recButton.textContent = 'Record Video';
+          if($scope.$ctrl.capsule.editingViewCapsule){
+            //is momento in old capsule
+            console.log($scope.$ctrl.capsule)
+
+          } else {
+            //is new momento in a new capsule
+          }
+          //data.key contains the unique key for this file
         });
       }
     }

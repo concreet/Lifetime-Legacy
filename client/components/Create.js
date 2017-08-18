@@ -5,10 +5,17 @@ angular.module('app')
   this.capsuleToEdit = $scope.$ctrl.capsuleToEdit;
   this.capIndex = null;
   this.capsuleNameModel = '';
-  $scope.momentoName = '';
-  $scope.input = '';
   $scope.date = '';
   $scope.recipient = '';
+
+  this.clearMomentoValues = () => {
+    $scope.momentoName = '';
+    $scope.input = '';
+    $scope.momentoVideoKey = '';
+  }
+
+  //Initialize moment values on $scope
+  this.clearMomentoValues();
 
   this.saveCapsule = (capObj, newMomento) => {
     Caps.saveCap(capObj, (err, res) => {
@@ -18,8 +25,7 @@ angular.module('app')
         }
         throw new Error(err);
       } else {
-        $scope.momentoName = '';
-        $scope.input = '';
+        this.clearMomentoValues();
       }
     });
   }
@@ -50,13 +56,11 @@ angular.module('app')
       capName = document.getElementById('capsuleInput').value;
     }
     if(capName !== null && capName !== undefined && capName !== '') {
-      console.log(capName, '??')
       Caps.createCap(this.userid, capName, (err, capsuleId) => {
         if (err) {
           console.log('You dun screwed up');
           throw new Error(err);
         } else {
-      console.log('here?')
           //this.capsuleName = '';
           this.capsuleId = capsuleId;
           //this.capsuleToEdit = {};
@@ -115,8 +119,7 @@ angular.module('app')
         var capObj = {capsuleName: $scope.$ctrl.capsuleName, capsuleId: this.capsuleId, capsuleContent: this.currentCap};
         this.saveCapsule(capObj, false);
       }
-      $scope.momentoName = '';
-      $scope.input = '';
+      this.clearMomentoValues();
       $scope.$ctrl.viewToggle(true);
     }
   }
@@ -156,6 +159,7 @@ angular.module('app')
         $scope.$ctrl.capsuleName = '';
         $scope.input = '';
         $scope.date = '';
+        this.clearMomentoValues();
         this.recipient = '';
         this.currentCap = [];
         $scope.$ctrl.viewToggle(true);
