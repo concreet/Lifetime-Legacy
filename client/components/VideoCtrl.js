@@ -34,6 +34,11 @@ angular.module('app')
     this.recordedBlobs = [];
     this.recButton = document.querySelector('button#addVideo');
 
+
+    this.getScope = () => {
+      console.log($scope.$ctrl)
+    }
+
     this.getVideos = () => {
       //will be getObject
       //takes in something from $scope to determine which video to get
@@ -131,13 +136,13 @@ angular.module('app')
         s3.upload(params, (err, data) => {
           // console.log(err, data);   
           this.recButton.textContent = 'Record Video';
-          if($scope.$ctrl.capsule.editingViewCapsule){
-            //is momento in old capsule
-            console.log($scope.$ctrl.capsule)
-
-          } else {
-            //is new momento in a new capsule
-          }
+          $scope.$ctrl.capsule.momentoVideoKey= data.key;
+          
+          // if($scope.$ctrl.capsule.editingViewCapsule){
+          //   //is momento in old capsule
+          // } else {
+          //   //is new momento in a new capsule
+          // }
           //data.key contains the unique key for this file
         });
       }
