@@ -36,7 +36,7 @@ angular.module('app')
   	var obj = {email: email, password: password};
 
   	Auth.signin(obj, (err, res) => {
-      console.log('res', res);
+      // console.log('res', res);
       if (err) {
         this.error = true;
       } else {

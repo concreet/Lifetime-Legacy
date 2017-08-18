@@ -5,6 +5,7 @@ angular.module('app')
   var STORE_URL = '';
 
   const filterCaps = function(filterMethod, userId, userEmail, cb) {
+
     $http({
       url: `${STORE_URL}/capsules/${filterMethod}`,
       method: 'POST',
@@ -14,7 +15,6 @@ angular.module('app')
     })
     .then(function(res) {
       // gets all the capsules return matching the filer
-      console.log(res.data, '============================')
       cb(null, res.data);
     })
     .catch(function(err) {

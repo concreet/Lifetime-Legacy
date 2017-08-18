@@ -5,15 +5,11 @@
   </div>
 
   <span ng-show="$ctrl.named">
-    <div>
+    <div class="addMomento">
       <input id="momentoInput" type="text" ng-model="momentoName" maxlength="40" placeholder="Momento Name"/>
       <textarea id="inputBox" rows="4" cols="70" ng-model="input" placeholder="Add a message"> </textarea>
-      <div id="addAudioVideo">
-        <div id="audioVideoList"></div>
-        <button id="addAudo">Add Audio</button>
-        <!-- <button>+</button> -->
-        <button id="addVideo">Record Video</button>
-      </div>
+      <!-- insert video controls here -->
+      <video-ctrl capsule="$ctrl" ></video-ctrl>
     </div>
 
 

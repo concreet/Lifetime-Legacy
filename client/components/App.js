@@ -8,7 +8,7 @@ angular.module('app', [])
 
 
   this.setUser = function(err, user) {
-    console.log('user', user);
+    // console.log('user', user);
 
     if (user._id) {
       this.signedIn = true;
@@ -29,7 +29,7 @@ angular.module('app', [])
 
   this.init = (id) => {
     // console.log(this.email, '====ljzlxcvjlxvjld;s=');
-    console.log(this.email, this.userId, this.signedIn, '????')
+    // console.log(this.email, this.userId, this.signedIn, '????')
     Contacts.getContacts(this.email, (err, data)=>{
       this.contacts = data;
     })
