@@ -27,13 +27,13 @@
 <div class="main">
   <div class="sidebar">
     <div>
-      <h4>Retrieve by secret</h4>
+      <h3>Retrieve by secret</h3>
       <form ng-submit="$ctrl.getCapsBySecret()">
-        <input ng-model="$ctrl.secret" type="text" name=""><br>
+        <input id="secretInput" ng-model="$ctrl.secret" type="text" name=""><br>
         <input class="btn" type="submit" id="submit" value="Submit"/>
       </form>
     </div>
-    <h4>Contacts<h4>
+    <h3>Contacts<h3>
       <div class="btn" id="addContact" ng-click="$ctrl.addContactPopup()">
         Add contact
       </div>
@@ -66,7 +66,7 @@
   </div>
   <div class="content">
     <div ng-show="$ctrl.view">
-      <view-page class="col-md-6" ng-repeat="cap in $ctrl.capsData track by $index" cap="cap" index="$index" edit-capsule="$ctrl.editCapsule" delete-cap="$ctrl.deleteCap"> </view-page>
+      <view-page class="col-md-3-faux" ng-repeat="cap in $ctrl.capsData track by $index" cap="cap" index="$index" edit-capsule="$ctrl.editCapsule" delete-cap="$ctrl.deleteCap"> </view-page>
     </div>
     <div ng-hide="$ctrl.view">
       <create-page view-toggle="$ctrl.toggleToView" named="$ctrl.named" capsule-id="$ctrl.capsuleId" capsule-to-edit="$ctrl.capsuleToEdit" editing-view-capsule="$ctrl.editingViewCapsule" view="$ctrl.view" edited-capsule-name="$ctrl.editedCapsuleName" current-cap="$ctrl.currentCap" capsule-name="$ctrl.capsuleName" delete-cap="$ctrl.deleteCap" contacts="$ctrl.contacts" user-id="$ctrl.userId"> </create-page>
