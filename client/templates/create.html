@@ -92,16 +92,19 @@
         </datepicker> -->
 
           <p>Enter Bury Date.</p>
-          <input type="text" ng-model="years" placeholder="Years"/>
+          <datepicker>
+            <input ng-model="date" type="text"/>
+          </datepicker>
+          <!-- <input type="text" ng-model="years" placeholder="Years"/>
           <input type="text" ng-model="months" placeholder="Months"/>
-          <input type="text" ng-model="days" placeholder="Days"/>
+          <input type="text" ng-model="days" placeholder="Days"/> -->
           <p>Intended Recipient.</p>
           <select ng-options="contact as contact.name for contact in $ctrl.contacts" ng-model="recipient"></select>
         </div>
 
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-          <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="$ctrl.bury(years, months, days, recipient)">Bury</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="$ctrl.bury(recipient)">Bury</button>
         </div>
 
       </div>
