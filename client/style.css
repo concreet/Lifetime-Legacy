@@ -13,6 +13,7 @@ html {
 
 body {
   height: 100%;
+  margin: 0 2.5% 0 2.5%;
 }
 
 p {
@@ -21,6 +22,12 @@ p {
     font-weight: bold;
 }
 /* Landing Page CSS */
+
+button {
+  background: #03A9F4; 
+  border-color: #03A9F4;
+  color: #FFFFFF;
+}
 
 #siteGreeting {
   font-size: 52px;
@@ -131,6 +138,8 @@ input { text-align:center; }
   margin-bottom: 20px;
   border-top: 200px solid gray;
   border-bottom: 2px solid gray;
+  margin-right: 2.5%;
+  margin-left: 2.5%;
 }
 
 .sidebar {
@@ -138,7 +147,7 @@ input { text-align:center; }
   width: 250px;
   /* height: 100%; */
   min-height: 300px;
-  border-right: 1px solid blue;
+  border-right: 3px solid #BDBDBD;
   border-radius: 0;
   /* background-color: blueviolet; */
 }
@@ -168,6 +177,7 @@ input { text-align:center; }
   text-align: center;
   float: right;
   margin: 5px;
+  color: #FFF;
 }
 
 .filterBar {
@@ -194,7 +204,7 @@ input { text-align:center; }
 
 .loginName {
   font-weight: bold;
-  margin-top: -24px;
+  margin-top: -10px;
 }
 
 .logoutButton {
@@ -221,9 +231,9 @@ i {
   background-color: #F4F4F4;
 }
 
-.capsuleBar button {
+/*.capsuleBar button {
   background-color: #F4F4F4;
-}
+}*/
 
 .viewCapName, .ticker {
   text-align: center;
@@ -248,6 +258,7 @@ i {
 
 #capsuleNameMargin {
 	text-align: right;
+  color: #FFF;
 }
 
 .break {
@@ -448,7 +459,7 @@ video {
 .default-primary-color { background: #607D8B; }
 .light-primary-color   { background: #CFD8DC; }
 .text-primary-color    { color: #FFFFFF; }
-.accent-color          { background: #03A9F4; }
+.accent-color          { background: #03A9F4; border-color: #03A9F4;}
 .primary-text-color    { color: #212121; }
 .secondary-text-color  { color: #757575; }
 .divider-color         { border-color: #BDBDBD; }

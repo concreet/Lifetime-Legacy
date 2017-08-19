@@ -14,7 +14,7 @@ angular.module('app')
               <button type="button" class="btn close" data-dismiss="modal">&times;</button>
               <h4 class="modal-title">${cap.capsuleName}</h4>
             </div>
-            <div class="viewModal-body" id="viewModalBody">
+            <div class="viewModal-body secondary-text-color" id="viewModalBody">
            
                 <h4>${cap.contents[$scope.chosenIndex].name}</h4>
                 <p id="viewDetails">${cap.contents[$scope.chosenIndex].input}</p>
@@ -33,7 +33,7 @@ angular.module('app')
   			      <button type="button" class="btn close" data-dismiss="modal">&times;</button>
   			      <h4 class="modal-title">${cap.capsuleName}</h4>
   			    </div>
-  			    <div class="viewModal-body" id="viewModalBody">
+  			    <div class="viewModal-body secondary-text-color" id="viewModalBody">
   		     
        	    	  <h4>${cap.contents[$scope.chosenIndex].name}</h4>
        	    	  <p id="viewDetails">${cap.contents[$scope.chosenIndex].input}</p>
@@ -55,7 +55,7 @@ angular.module('app')
 		      <button type="button" class="btn close" data-dismiss="modal">&times;</button>
 		      <h4 class="modal-title">${cap.capsuleName}</h4>
 		    </div>
-		    <div class="viewModal-body" id="viewModalBody">
+		    <div class="viewModal-body secondary-text-color" id="viewModalBody">
 		    </div>
 		  </div>
 		</div>`
