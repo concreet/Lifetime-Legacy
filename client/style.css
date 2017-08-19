@@ -148,12 +148,7 @@ input { text-align:center; }
   width: 250px;
   height: 100%;
   min-height: 300px;
-<<<<<<< HEAD
-  border-right: 3px solid #BDBDBD;
-=======
   padding: 8px;
-  /* border-right: 1px solid blue; */
->>>>>>> Adding css to sidepanel
   border-radius: 0;
   background-color: #607D8B;
 }
