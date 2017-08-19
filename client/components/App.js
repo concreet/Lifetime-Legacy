@@ -1,4 +1,4 @@
-angular.module('app', [])
+angular.module('app', ['720kb.datepicker'])
 .controller('AppCtrl', function($scope, Caps, Auth, Contacts) {
 
   this.signedIn = false;
