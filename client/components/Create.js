@@ -134,7 +134,10 @@ angular.module('app')
 
     // console.log(date, years, months, days)
     var date = $scope.date;
-
+    if (!$scope.date) {
+      alert('Please select a date before you proceed');
+      return;
+    }
     var capObj;
     if ($scope.$ctrl.editingViewCapsule) {
 
