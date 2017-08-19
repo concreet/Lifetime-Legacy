@@ -1,8 +1,8 @@
 <div class="contact">
   <div ng-click="$ctrl.selectedContact($ctrl.contact)">
     <p class="contactName">{{$ctrl.contact.name}}</p>
-    <p class="contactInfo" ng-show="$ctrl.contact.email">Email: {{$ctrl.contact.email}}</p>
-    <p class="contactInfo" ng-show="$ctrl.contact.secret">Secret: {{$ctrl.contact.secret}}</p>
+    <p class="contactInfo" ng-show="$ctrl.contact.secret">Secret: </br> {{$ctrl.contact.secret}}</p>
+    <p class="contactInfo" ng-show="$ctrl.contact.email">Email: </br> {{$ctrl.contact.email}}</p>
   </div>
   <div class="removeContact" ng-click="$ctrl.removeContacts($ctrl.contact)">
     <i class="fa fa-trash" aria-hidden="true"></i>
