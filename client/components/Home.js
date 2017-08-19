@@ -10,12 +10,20 @@ angular.module('app')
   this.named = false;
   this.addContactPopupBool = true;
   this.addContactName = '';
-  this.addContactEmailOrPhrase = '';
-  this.valueEmailOrPhrase = 'Email';
+  this.addContactEmailOrSecret = '';
+  this.valueEmailOrSecret = 'Email';
   this.selectedContacts = [];
+  this.secret = '';
 
-  //fake data
+  this.getCapsBySecret = function() {
+    Caps.getCapsBySecret(this.secret, $scope.$ctrl.email, (err, data) => {
+      console.log('called', err, this.secret, $scope.$ctrl.email)
 
+      if (!err) {
+        console.log('called successfully')
+      }
+    })
+  }
 
   this.renderContacts = function() {
     Contacts.getContacts(this.email, (err, data)=>{
@@ -36,7 +44,7 @@ angular.module('app')
 
   this.handleFilter = function(event) {
 
-    
+
     Caps.filterCaps(event.target.id, $scope.$ctrl.userId, this.email, (err, res) => {
       if (!err) {
         $scope.$ctrl.capsData = res;
@@ -49,10 +57,10 @@ angular.module('app')
   this.addContact = function() {
     this.compareContacts((err) => {
       if (!err) {
-        var field = this.valueEmailOrPhrase.toLowerCase();
+        var field = this.valueEmailOrSecret.toLowerCase();
         var contactObj = {}
         contactObj.name = this.addContactName,
-        contactObj[field] = this.addContactEmailOrPhrase
+        contactObj[field] = this.addContactEmailOrSecret
 
         Contacts.addContact($scope.$ctrl.email, contactObj, ()=>{
           console.log('callback!')
@@ -63,17 +71,17 @@ angular.module('app')
     })
   }
 
-  this.toggleEmailOrPhrase = function(e) {
+  this.toggleEmailOrSecret = function(e) {
     console.log(e.target.attributes[0].value)
     // e.preventDefault();
-    this.valueEmailOrPhrase = e.target.attributes[0].value;
-    this.addContactEmailOrPhrase = '';
+    this.valueEmailOrSecret = e.target.attributes[0].value;
+    this.addContactEmailOrSecret = '';
     this.addContactName = '';
 
   }
 
   this.addContactPopup = function(event) {
-    this.addContactEmailOrPhrase = '';
+    this.addContactEmailOrSecret = '';
     this.addContactName = '';
     this.addContactPopupBool = !this.addContactPopupBool;
   }

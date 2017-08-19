@@ -114,7 +114,8 @@ exports.getContacts = (req, res) => {
 
 //need to update http
 exports.getAllCapsules = (req, res) => {
-  console.log('req body userId', req.body);
+  console.log('req body userId and email', req.body);
+
 
   Capsule.find({
     $or: [{ intendedRecipient: { $elemMatch: { email:req.body.email }}, buried: true }, { _user: req.body.userId }]},
@@ -127,6 +128,8 @@ exports.getAllCapsules = (req, res) => {
       res.sendStatus(404);
     } else {
       console.log(`Successfully retrieved all capsules for user ${req.body.userId}`);
+      console.log(capsules);
+
       res.send(capsules);
     }
   });
@@ -164,33 +167,53 @@ exports.getOtherCapsules = (req, res) => {
 }
 
 //expecting req.body.sercret and req.body.userEmail
-exports.getOtherCapsulesBySecret=(req, res) => {
-  Capsule.find({ intendedRecipient: { $elemMatch: { secret:req.body.secret }}, buried: true }, (err, capsules) => {
+exports.getOtherCapsulesBySecret = (req, res) => {
+  Capsule.update({"intendedRecipient.secret": req.body.secret}, {"$set": {"intendedRecipient.$.email" : req.body.email}}, (err, capsules) => {
     if (err) {
-      console.error(`Get other capsules by secret retrieval error: ${err}`);
-      res.sendStatus(404);
-    } else if (!capsules) {
-      console.log('There is no other capsules by secret');
       res.sendStatus(404);
     } else {
-      console.log('Successfully retrieved other capsules from the sercret');
-      for (let contact of capsules.intendedRecipient) {
-        if (contact.secret === req.body.secret) {
-          contact.email = req.body.email;
-        }
-      }
-      capsules.save((err, user) => {
-        if (err) {
-          console.error(err);
-          res.sendStatus(404);
-        } else {
-          console.log(`Successfully add user email ${req.body.email} as a recipient to this capsule`);
-          res.send(capsules);
-        }
-      })
+      console.log(`Successfully add user email ${req.body.email} as a recipient to this capsule`);
+      res.send(capsules);
     }
-  });
+  })
 }
+  // Capsule.find({ intendedRecipient: { $elemMatch: { secret:req.body.secret }}, buried: true }, (err, capsules) => {
+  //   if (err) {
+  //     console.error(`Get other capsules by secret retrieval error: ${err}`);
+  //     res.sendStatus(404);
+  //   } else if (!capsules) {
+  //     console.log('There is no other capsules by secret');
+  //     res.sendStatus(404);
+  //   } else {
+  //     console.log('Successfully retrieved other capsules from the sercret');
+  //     let counter = 0;
+  //     for (var capsule of capsules) {
+  //       for (var contact of capsule.intendedRecipient) {
+  //         if (contact.secret === req.body.secret) {
+  //           contact.email = req.body.email;
+  //           capsule.sav.e((err, user) => {
+  //             if (err) {
+  //               console.error(err);
+  //               res.sendStatus(404);
+  //             } else {
+  //               counter ++;
+  //               console.log(`Successfully add user email ${req.body.email} as a recipient to this capsule`);
+  //               console.log('SUCCESS capsule', capsule);
+  //               console.log('user', user);
+  //             }
+  //           })
+  //         }
+  //       }
+  //       console.log('capsule outside loop', capsule);
+  //     }
+  //     console.log('count', counter)
+  //     if (counter === capsules.length) {
+  //       console.log('caaaaaaaaaps', capsules)
+  //       res.send(capsules);
+  //     }
+  //   }
+  // });
+
 
 exports.inProgress = (req, res) => {
   Capsule.find({ _user: req.body.userId, buried: false }, (err, capsules) => {
