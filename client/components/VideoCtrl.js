@@ -33,23 +33,12 @@ angular.module('app')
     this.mediaRecorder;
     this.recordedBlobs = [];
     this.recButton = document.querySelector('button#addVideo');
+    
 
 
-    this.getScope = () => {
-      console.log($scope.$ctrl)
-    }
-
-    this.getVideos = () => {
-      //will be getObject
-      //takes in something from $scope to determine which video to get
-      // s3.listObjectsV2({
-      //   MaxKeys: 5,
-      // }, function(err, data){
-      //   if(err) console.log(err)
-      //   console.log('DATA: ', data)
-      // })
-      console.log('Scope: ', $scope.$ctrl.capsule)
-    }
+    // this.getScope = () => {
+    //   console.log($scope.$ctrl)
+    // }
 
     this.handleDataAvailable = (event) => {
       if (event.data && event.data.size > 0) {
@@ -137,13 +126,7 @@ angular.module('app')
           // console.log(err, data);   
           this.recButton.textContent = 'Record Video';
           $scope.$ctrl.capsule.momentoVideoKey= data.key;
-          
-          // if($scope.$ctrl.capsule.editingViewCapsule){
-          //   //is momento in old capsule
-          // } else {
-          //   //is new momento in a new capsule
-          // }
-          //data.key contains the unique key for this file
+
         });
       }
     }

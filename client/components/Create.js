@@ -1,5 +1,5 @@
 angular.module('app')
-.controller('CreateCtrl', function($scope, Caps) {
+.controller('CreateCtrl', function($scope, $sce, Caps) {
 
   this.capsuleId = $scope.$ctrl.capsuleId;
   this.capsuleToEdit = $scope.$ctrl.capsuleToEdit;
@@ -170,6 +170,22 @@ angular.module('app')
     });
   }
 
+  $scope.showMomentoVideo = (momento) => {
+    if(momento.videoKey) { 
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  $scope.getMomentoVideoUrl = (momento) => {
+    if(momento.videoKey) {
+      return $sce.trustAsResourceUrl('https://s3.amazonaws.com/bchilds-greenfield-legacy-timecapsule/' + momento.videoKey);
+    } else { 
+      return '';
+    }
+  }
+
   this.momentoDetails = (momento) => {
     // Work around for rendering dynamic content to modal by using jquery
     //momento.videoKey
@@ -178,15 +194,14 @@ angular.module('app')
           `<div class="modal-dialog" id="viewModalDialog">
           <div class="modal-content" id="viewModalContent">
             <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <button type="button" class="close" data-dismiss="modal" ng-click="stopVideos()">&times;</button>
               <h4 class="modal-title" id="momentoDetails">${$scope.$ctrl.capsuleName}</h4>
             </div>
             <div class="viewModal-body" id="viewModalBody">
               <div id="momentoDetails">
-
                 <h4>${momento.name}</h4>
                 <p id="viewDetails">${momento.input}</p>
-                <video id="view-video" controls autoplay loop>
+                <video id="view-video" controls autoplay>
                   <source src="https://s3.amazonaws.com/bchilds-greenfield-legacy-timecapsule/${momento.videoKey}">
                 </video>
               </div>

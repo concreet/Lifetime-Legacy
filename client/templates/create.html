@@ -57,6 +57,9 @@
       </div>
       <h4 class="break"> {{input.name}} </h4>
       <p class="momentoInput break"> {{input.input}} </p>
+      <video id="view-video" ng-show="showMomentoVideo(input)" controls>
+        <source ng-src="{{getMomentoVideoUrl(input)}}">
+      </video>
     </div>
 
 
