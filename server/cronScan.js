@@ -30,12 +30,17 @@ const Capsule = require('./models/capsule.js');
                 else {
                   let user = capsule._user.username;
                   let email = capsule._user.email;
+                  let recipients = capsule.intendedRecipient;
                   let capsuleName = capsule.capsuleName || '(unnamed capsule)';
                   let message = `
                     Hello, ${user}!
                     Your capsule (${capsuleName}) is ready for viewing.
                   `;
-
+                  for (let recipient of recipients) {
+                    if (recipient.email) {
+                      emailService.sendEmail(recipient.email, message);
+                    }
+                  }
                   emailService.sendEmail(email, message);
                   console.log('Capsule successfully unearthed');
                 }
@@ -51,7 +56,7 @@ const Capsule = require('./models/capsule.js');
   // so at most one day will be lost, and any capsules that should have been
   // unearthed will simply be unearthed on the next day
   let job = new CronJob({
-    cronTime: '00 00 8 * * 0-6',
+    cronTime: '00 33 13 * * 0-6',
     onTick: scan,
     start: true,
     timeZone: 'America/Los_Angeles'
