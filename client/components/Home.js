@@ -14,6 +14,7 @@ angular.module('app')
   this.valueEmailOrSecret = 'Email';
   this.selectedContacts = [];
   this.secret = '';
+  this.currentFilter = '';
 
   this.getCapsBySecret = function() {
     Caps.getCapsBySecret(this.secret, $scope.$ctrl.email, (err, data) => {
@@ -21,6 +22,13 @@ angular.module('app')
 
       if (!err) {
         console.log('called successfully')
+        event = {
+          target: {
+            id: 'all'
+          }
+        }
+        this.handleFilter(event);
+
       }
     })
   }
@@ -43,7 +51,6 @@ angular.module('app')
   }
 
   this.handleFilter = function(event) {
-
 
     Caps.filterCaps(event.target.id, $scope.$ctrl.userId, this.email, (err, res) => {
       if (!err) {

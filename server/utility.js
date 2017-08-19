@@ -168,8 +168,11 @@ exports.getOtherCapsules = (req, res) => {
 
 //expecting req.body.sercret and req.body.userEmail
 exports.getOtherCapsulesBySecret = (req, res) => {
-  Capsule.update({"intendedRecipient.secret": req.body.secret}, {"$set": {"intendedRecipient.$.email" : req.body.email}}, (err, capsules) => {
+  console.log('----------------------------------------------------------------------')
+  console.log(req.body.secret, req.body.email)
+  Capsule.update({"intendedRecipient.secret": req.body.secret}, {"$set": {"intendedRecipient.$.email" : req.body.email}}, {multi: true}, (err, capsules) => {
     if (err) {
+      console.log('err', err)
       res.sendStatus(404);
     } else {
       console.log(`Successfully add user email ${req.body.email} as a recipient to this capsule`);
