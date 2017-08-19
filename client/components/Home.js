@@ -106,8 +106,6 @@ angular.module('app')
 
   this.toggleToCreate = () => {
     if (this.view) {
-      console.log('userId', $scope.$ctrl.userId);
-      console.log('email', $scope.$ctrl.email);
       this.view = false;
       // Caps.createCap($scope.$ctrl.userId, 'test', (err, capsuleId) => {
       //   if (err) {

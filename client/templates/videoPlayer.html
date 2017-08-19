@@ -1,0 +1,10 @@
+<div id="addAudioVideo">
+  <div id="audioVideoList">
+    <video id="gum" autoplay muted></video>
+    <video id="cap-video" ng-src="{{videostream}}" autoplay loop></video>
+  </div>
+  <!-- <button id="addAudio">Add Audio</button> -->
+  <button id="addVideo" ng-click="$ctrl.runVid()">Record Video</button>
+  <button id="uploadToS3" ng-click="$ctrl.uploadToS3()">Upload</button>
+  <button id="getScope" ng-click="$ctrl.getScope()">Get Scope</button>
+</div>

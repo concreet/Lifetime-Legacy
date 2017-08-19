@@ -5,10 +5,17 @@ angular.module('app')
   this.capsuleToEdit = $scope.$ctrl.capsuleToEdit;
   this.capIndex = null;
   this.capsuleNameModel = '';
-  $scope.momentoName = '';
-  $scope.input = '';
   $scope.date = '';
   $scope.recipient = '';
+
+  this.clearMomentoValues = () => {
+    $scope.momentoName = '';
+    $scope.input = '';
+    this.momentoVideoKey = '';
+  }
+
+  //Initialize moment values on $scope
+  this.clearMomentoValues();
 
   this.saveCapsule = (capObj, newMomento) => {
     Caps.saveCap(capObj, (err, res) => {
@@ -18,8 +25,7 @@ angular.module('app')
         }
         throw new Error(err);
       } else {
-        $scope.momentoName = '';
-        $scope.input = '';
+        this.clearMomentoValues();
       }
     });
   }
@@ -27,13 +33,13 @@ angular.module('app')
   this.capsuleChange = (input, addMomento) => {
     if ($scope.$ctrl.editingViewCapsule) {
       if(addMomento) {
-        this.capsuleToEdit.contents.unshift({input: input, name: $scope.momentoName});
+        this.capsuleToEdit.contents.unshift({input: input, name: $scope.momentoName, videoKey: this.momentoVideoKey});
       }
       var capObj = {capsuleName: $scope.$ctrl.capsuleName, capsuleId: this.capsuleId, capsuleContent: this.capsuleToEdit.contents};
       this.saveCapsule(capObj, false);
     } else {
       if(addMomento) {
-        this.currentCap.unshift({input: input, name: $scope.momentoName});
+        this.currentCap.unshift({input: input, name: $scope.momentoName, videoKey: this.momentoVideoKey});
       }
       var capObj = {capsuleName: $scope.$ctrl.capsuleName, capsuleId: this.capsuleId, capsuleContent: this.currentCap};
       this.saveCapsule(capObj, true);
@@ -56,7 +62,6 @@ angular.module('app')
           console.log('You dun screwed up');
           throw new Error(err);
         } else {
-      console.log('here?')
           //this.capsuleName = '';
           this.capsuleId = capsuleId;
           //this.capsuleToEdit = {};
@@ -79,11 +84,11 @@ angular.module('app')
     console.log(this.capIndex, input, momentoName);
     $scope.momentoName = momentoName;
     if ($scope.$ctrl.editingViewCapsule) {
-      $scope.$ctrl.capsuleToEdit.contents[this.capIndex] = {input: input, name: $scope.momentoName};
+      $scope.$ctrl.capsuleToEdit.contents[this.capIndex] = {input: input, name: $scope.momentoName, videoKey: this.momentoVideoKey};
       var capObj = {capsuleName: $scope.$ctrl.editedCapsuleName, capsuleId: $scope.$ctrl.capsuleId, capsuleContent: $scope.$ctrl.capsuleToEdit.contents};
       this.saveCapsule(capObj, false);
     } else {
-      this.currentCap[this.capIndex] = {input: input, name: $scope.momentoName};
+      this.currentCap[this.capIndex] = {input: input, name: $scope.momentoName, videoKey: this.momentoVideoKey};
       var capObj = {capsuleName: $scope.$ctrl.capsuleName, capsuleId: this.capsuleId, capsuleContent: this.currentCap};
       this.saveCapsule(capObj, false);
     }
@@ -115,8 +120,7 @@ angular.module('app')
         var capObj = {capsuleName: $scope.$ctrl.capsuleName, capsuleId: this.capsuleId, capsuleContent: this.currentCap};
         this.saveCapsule(capObj, false);
       }
-      $scope.momentoName = '';
-      $scope.input = '';
+      this.clearMomentoValues();
       $scope.$ctrl.viewToggle(true);
     }
   }
@@ -158,6 +162,7 @@ angular.module('app')
         $scope.$ctrl.capsuleName = '';
         $scope.input = '';
         $scope.date = '';
+        this.clearMomentoValues();
         this.recipient = '';
         this.currentCap = [];
         $scope.$ctrl.viewToggle(true);
@@ -167,24 +172,49 @@ angular.module('app')
 
   this.momentoDetails = (momento) => {
     // Work around for rendering dynamic content to modal by using jquery
-    $('#viewMomentoModal').html(
-      `<div class="modal-dialog" id="viewModalDialog">
-      <div class="modal-content" id="viewModalContent">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title" id="momentoDetails">${$scope.$ctrl.capsuleName}</h4>
-        </div>
-        <div class="viewModal-body" id="viewModalBody">
-          <div id="momentoDetails">
+    //momento.videoKey
+    if(momento.videoKey) {
+        $('#viewMomentoModal').html(
+          `<div class="modal-dialog" id="viewModalDialog">
+          <div class="modal-content" id="viewModalContent">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title" id="momentoDetails">${$scope.$ctrl.capsuleName}</h4>
+            </div>
+            <div class="viewModal-body" id="viewModalBody">
+              <div id="momentoDetails">
 
-            <h4>${momento.name}</h4>
-            <p id="viewDetails">${momento.input}</p>
+                <h4>${momento.name}</h4>
+                <p id="viewDetails">${momento.input}</p>
+                <video id="view-video" controls autoplay loop>
+                  <source src="https://s3.amazonaws.com/bchilds-greenfield-legacy-timecapsule/${momento.videoKey}">
+                </video>
+              </div>
+            </div>
+          </div>
+        </div>`
+        )
+    } else {
+      //no video, no S3 needed for display
+      $('#viewMomentoModal').html(
+        `<div class="modal-dialog" id="viewModalDialog">
+        <div class="modal-content" id="viewModalContent">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title" id="momentoDetails">${$scope.$ctrl.capsuleName}</h4>
+          </div>
+          <div class="viewModal-body" id="viewModalBody">
+            <div id="momentoDetails">
 
+              <h4>${momento.name}</h4>
+              <p id="viewDetails">${momento.input}</p>
+
+            </div>
           </div>
         </div>
-      </div>
-    </div>`
-    );
+      </div>`
+      )
+    }
   }
 })
 .component('createPage', {
