@@ -68,7 +68,7 @@ angular.module('app')
             `<div class="modalBodyBorder" id="${i}">
             <h4>${cap.contents[i].name}</h4>
             <p class="momentoInput">${cap.contents[i].input}</p>
-            <video id="view-video" controls autoplay>
+            <video id="view-video" controls>
               <source src="https://s3.amazonaws.com/bchilds-greenfield-legacy-timecapsule/${cap.contents[i].videoKey}">
             </video>
           </div>`

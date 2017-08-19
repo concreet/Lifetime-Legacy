@@ -1,5 +1,5 @@
 angular.module('app')
-.controller('CreateCtrl', function($scope, Caps) {
+.controller('CreateCtrl', function($scope, $sce, Caps) {
 
   this.capsuleId = $scope.$ctrl.capsuleId;
   this.capsuleToEdit = $scope.$ctrl.capsuleToEdit;
@@ -168,6 +168,22 @@ angular.module('app')
         $scope.$ctrl.viewToggle(true);
      }
     });
+  }
+
+  $scope.showMomentoVideo = (momento) => {
+    if(momento.videoKey) { 
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  $scope.getMomentoVideoUrl = (momento) => {
+    if(momento.videoKey) {
+      return $sce.trustAsResourceUrl('https://s3.amazonaws.com/bchilds-greenfield-legacy-timecapsule/' + momento.videoKey);
+    } else { 
+      return '';
+    }
   }
 
   this.momentoDetails = (momento) => {

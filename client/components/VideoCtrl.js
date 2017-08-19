@@ -33,6 +33,7 @@ angular.module('app')
     this.mediaRecorder;
     this.recordedBlobs = [];
     this.recButton = document.querySelector('button#addVideo');
+    
 
 
     // this.getScope = () => {
