@@ -6,7 +6,6 @@ angular.module('app', ['720kb.datepicker'])
   this.email = '';
   this.contacts = [];
 
-
   this.setUser = function(err, user) {
     // console.log('user', user);
 
