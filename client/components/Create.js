@@ -178,15 +178,14 @@ angular.module('app')
           `<div class="modal-dialog" id="viewModalDialog">
           <div class="modal-content" id="viewModalContent">
             <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <button type="button" class="close" data-dismiss="modal" ng-click="stopVideos()">&times;</button>
               <h4 class="modal-title" id="momentoDetails">${$scope.$ctrl.capsuleName}</h4>
             </div>
             <div class="viewModal-body" id="viewModalBody">
               <div id="momentoDetails">
-
                 <h4>${momento.name}</h4>
                 <p id="viewDetails">${momento.input}</p>
-                <video id="view-video" controls autoplay loop>
+                <video id="view-video" controls autoplay>
                   <source src="https://s3.amazonaws.com/bchilds-greenfield-legacy-timecapsule/${momento.videoKey}">
                 </video>
               </div>

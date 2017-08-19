@@ -32,7 +32,7 @@ angular.module('app')
       }
     })
   }
-
+  
   this.renderContacts = function() {
     Contacts.getContacts(this.email, (err, data)=>{
       $scope.$ctrl.contacts = data;
