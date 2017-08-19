@@ -14,9 +14,6 @@ angular.module('app')
   this.valueEmailOrPhrase = 'Email';
   this.selectedContacts = [];
 
-  //fake data
-
-
   this.renderContacts = function() {
     Contacts.getContacts(this.email, (err, data)=>{
       $scope.$ctrl.contacts = data;
