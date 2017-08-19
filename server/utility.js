@@ -300,7 +300,7 @@ exports.deleteCapsule = (req, res) => {
 //this is the place to send recipients
 exports.buryCapsule = (req, res) => {
   let capsuleId = req.body.capsuleId;
-  let unearthDate = req.body.unearthDate;
+  let unearthDate = new Date(req.body.unearthDate);
   let newRecipient = req.body.recipient;
 
 
@@ -315,7 +315,8 @@ exports.buryCapsule = (req, res) => {
         res.sendStatus(404);
       } else {
         capsule.buried = true;
-        capsule.unearthDate = exports.parseDate(unearthDate);
+        // capsule.unearthDate = exports.parseDate(unearthDate);
+        capsule.unearthDate = unearthDate;
         capsule.intendedRecipient = newRecipient;
 
         let year = capsule.unearthDate.getFullYear();
