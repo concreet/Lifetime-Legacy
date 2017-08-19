@@ -24,9 +24,9 @@ angular.module('app')
 
   const getCapsBySecret = function(secret, userEmail, cb) {
     $http({
-      url: `${STORE_URL}/capsules/${filterMethod}`,
+      url: `${STORE_URL}/secretCapsules`,
       method: 'POST',
-      data: {userId: userId, email: userEmail },
+      data: {secret: secret, email: userEmail },
       contentType: 'application/json',
       withCredentials: true
     })
@@ -124,6 +124,7 @@ angular.module('app')
     saveCap: saveCap,
     bury: bury,
     createCap: createCap,
-    deleteCap: deleteCap
+    deleteCap: deleteCap,
+    getCapsBySecret: getCapsBySecret
   };
 })

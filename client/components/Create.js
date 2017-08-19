@@ -56,7 +56,8 @@ angular.module('app')
       capName = document.getElementById('capsuleInput').value;
     }
     if(capName !== null && capName !== undefined && capName !== '') {
-      Caps.createCap(this.userid, capName, (err, capsuleId) => {
+      console.log(capName, '??')
+      Caps.createCap($scope.$ctrl.userId, capName, (err, capsuleId) => {
         if (err) {
           console.log('You dun screwed up');
           throw new Error(err);
@@ -130,6 +131,8 @@ angular.module('app')
     date[0] = Number(years) || 0;
     date[1] = Number(months) || 0;
     date[2] = Number(days) || 0;
+
+    console.log(date, years, months, days)
 
     var capObj;
     if ($scope.$ctrl.editingViewCapsule) {
@@ -218,7 +221,7 @@ angular.module('app')
   controller: 'CreateCtrl',
 
   bindings: {
-    userid: '<',
+    userId: '<',
     capsuleId: '<',
     capsuleToEdit: '<',
     editingViewCapsule: '<',
