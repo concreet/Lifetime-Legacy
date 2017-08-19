@@ -154,6 +154,12 @@ input { text-align:center; }
 }
 
 /*Contacts*/
+.contact {
+  margin: 10px 0px;
+  padding: 5px;
+  height: 69px;
+  border: aquamarine solid 1px;
+}
 .removeContact {
   width: 17px;
   position: relative;
