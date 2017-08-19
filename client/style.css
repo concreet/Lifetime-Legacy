@@ -1,9 +1,9 @@
 * {
   font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
   font-size: 20px;
-  background-color: #FFFFFF;
+/*  background-color: #FFFFFF;
   color: #222222;
-  border-color: grey;
+  border-color: grey;*/
   border-radius: 5px;
 }
 
@@ -73,8 +73,8 @@ input { text-align:center; }
 }
 
 .btn {
-  background-color: rgba(225,225,225,0.55);
-  color: #222222;
+  background: #03A9F4;
+  color: #FFFFFF;
   cursor: pointer;
   display: block;
   font-size:18px;
@@ -216,33 +216,6 @@ input { text-align:center; }
   width: 100%;
   text-align: right;
 }
-
-/*.inProgress {
-  position: absolute;
-  bottom: 20px;
-	width: 250px;
-	height:  250px;
-	border: 1px solid;
-	padding: 10px;
-	margin: 10px;
-	border-radius: 5px;
->>>>>>> 8754339770cb1b0244c0c299b17a76954ed8417e
-
-}
-
-.viewCapName {
-  text-align: center;
-  float: center;
-}
-
-.capsuleBar {
-	height: 10%;
-	width: 100%;
-	text-align: center;
-	margin-bottom: 10px;
-
-}
-}*/
 
 i {
   background-color: #F4F4F4;
@@ -470,3 +443,12 @@ video {
   vertical-align: top;
   width: calc(20em - 10px);
 }
+
+.dark-primary-color    { background: #455A64; }
+.default-primary-color { background: #607D8B; }
+.light-primary-color   { background: #CFD8DC; }
+.text-primary-color    { color: #FFFFFF; }
+.accent-color          { background: #03A9F4; }
+.primary-text-color    { color: #212121; }
+.secondary-text-color  { color: #757575; }
+.divider-color         { border-color: #BDBDBD; }
