@@ -12,33 +12,17 @@ angular.module('app')
         IdentityPoolId: 'us-east-1:d2bcb54e-2e0d-49e8-b4fa-ad7a899e5aaf',
     });
 
-    // AWS.config.update({
-    //   // credentials: new AWS.CognitoIdentityCredentials({
-    //   //   // region: 'us-east-1',
-    //   //   IdentityPoolId: IdentityPoolId
-    //   // }),
-    //   accessKeyId: window.AWS_ACCESS_KEY,
-    //   secretAccessKey: window.AWS_SECRET_KEY
-    // });
-
-    //init logging
-
     var s3 = new AWS.S3({
       apiVersion: '2006-03-01',
       params: {Bucket: albumBucketName}
     });
+
     //*****
 
     this.recordedVideo = document.querySelector('video#cap-video');
     this.mediaRecorder;
     this.recordedBlobs = [];
     this.recButton = document.querySelector('button#addVideo');
-    
-
-
-    // this.getScope = () => {
-    //   console.log($scope.$ctrl)
-    // }
 
     this.handleDataAvailable = (event) => {
       if (event.data && event.data.size > 0) {
@@ -122,8 +106,7 @@ angular.module('app')
         dateString = dateString.replace(")","");
         file.name = $scope.$ctrl.capsule.capsuleId + dateString;
         var params = {Body: file, Key: file.name};
-        s3.upload(params, (err, data) => {
-          // console.log(err, data);   
+        s3.upload(params, (err, data) => {  
           this.recButton.textContent = 'Record Video';
           $scope.$ctrl.capsule.momentoVideoKey= data.key;
 
@@ -136,16 +119,11 @@ angular.module('app')
 
 .component('videoCtrl', {
   controller: 'VideoCtrl',
-
-  //will need capsule ID and momento index
-  //capsule will either be capsuleToEdit or... currentCap?
   bindings: {
     capsule: '=',
   },
 
   templateUrl: '../templates/videoPlayer.html'
 })
-
-
 
 //https://codepen.io/Xeoncross/pen/WbYggJ?editors=1010
