@@ -9,6 +9,7 @@
 
 html {
   height: 100%;
+  margin: 15px;
 }
 
 body {
@@ -152,6 +153,14 @@ input { text-align:center; }
   /* background-color: blueviolet; */
 }
 
+/*Contacts*/
+.removeContact {
+  width: 17px;
+  position: relative;
+  top: -56px;
+  right: -220px;
+}
+
 .main {
   /* float: left; */
   width: 1350px;
@@ -159,10 +168,25 @@ input { text-align:center; }
   margin: auto;
 }
 
-.content {
-  float: left;
-  width: 1100px;
+@media screen and (min-width: 1400px) {
+  .content {
+    float: left;
+    width: 1100px;
+  }
 }
+@media screen and (min-width: 1155px) and (max-width: 1399px) {
+  .content {
+    float: left;
+    width: 855px;
+  }
+}
+@media screen and (min-width: 840px) and (max-width: 1154px) {
+  .content {
+    float: left;
+    width: 550px;
+  }
+}
+
 .create {
   margin-right: -11%;
   /*background-color: rgba(103, 223, 205, 0.43);*/
@@ -455,6 +479,7 @@ video {
   width: calc(20em - 10px);
 }
 
+<<<<<<< HEAD
 .dark-primary-color    { background: #455A64; }
 .default-primary-color { background: #607D8B; }
 .light-primary-color   { background: #CFD8DC; }
@@ -463,3 +488,14 @@ video {
 .primary-text-color    { color: #212121; }
 .secondary-text-color  { color: #757575; }
 .divider-color         { border-color: #BDBDBD; }
+=======
+
+/*BUTCHERING THIS DAMN BOOTSTRAP*/
+.col-md-3-faux {
+  float: left;
+  position: relative;
+  min-height: 1px;
+  padding-right: 15px;
+  padding-left: 15px;
+}
+>>>>>>> Styling start

@@ -66,7 +66,11 @@
   </div>
   <div class="content">
     <div ng-show="$ctrl.view">
+<<<<<<< HEAD
       <view-page class="col-md-6" ng-repeat="cap in $ctrl.capsData track by $index" cap="cap" index="$index" edit-capsule="$ctrl.editCapsule" delete-cap="$ctrl.deleteCap"> </view-page>
+=======
+      <view-page class="col-md-3-faux" ng-repeat="cap in $ctrl.capsData track by $index" cap="cap" index="$index" edit-capsule="$ctrl.editCapsule" delete-cap="$ctrl.deleteCap"> </view-page>
+>>>>>>> Styling start
     </div>
     <div ng-hide="$ctrl.view">
       <create-page view-toggle="$ctrl.toggleToView" named="$ctrl.named" capsule-id="$ctrl.capsuleId" capsule-to-edit="$ctrl.capsuleToEdit" editing-view-capsule="$ctrl.editingViewCapsule" view="$ctrl.view" edited-capsule-name="$ctrl.editedCapsuleName" current-cap="$ctrl.currentCap" capsule-name="$ctrl.capsuleName" delete-cap="$ctrl.deleteCap" contacts="$ctrl.contacts" user-id="$ctrl.userId"> </create-page>

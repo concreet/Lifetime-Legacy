@@ -4,7 +4,7 @@
     <p class="contactInfo" ng-show="$ctrl.contact.email">Email: {{$ctrl.contact.email}}</p>
     <p class="contactInfo" ng-show="$ctrl.contact.secret">Secret: {{$ctrl.contact.secret}}</p>
   </div>
-  <div class="btn" id="removeContact" ng-click="$ctrl.removeContacts($ctrl.contact)">
-    Remove
+  <div class="removeContact" ng-click="$ctrl.removeContacts($ctrl.contact)">
+    <i class="fa fa-trash" aria-hidden="true"></i>
   </div>
 </div>
